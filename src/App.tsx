@@ -48,6 +48,8 @@ function App() {
   });
 
   const handleKeyUp = (e: KeyboardEvent<HTMLImageElement>) => {
+    // TODO mobile devices, capslock/shift
+
     if (!allowedInputKeys.includes(e.key)) {
       return;
     }
