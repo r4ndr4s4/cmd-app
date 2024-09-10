@@ -1,7 +1,8 @@
 import styled from "@emotion/styled";
-import { useState, KeyboardEvent, useRef, useEffect } from "react";
+import { useState, KeyboardEvent, useRef, useEffect, ReactNode } from "react";
 
 import { allowedInputKeys } from "./utils";
+import commands from "./assets/commands";
 
 const Container = styled.div`
   width: 100vw;
@@ -34,7 +35,7 @@ const Input = styled.div`
 
 function App() {
   const [input, setInput] = useState("");
-  const [history, setHistory] = useState<string[]>([]); // Array(65).fill("test")
+  const [history, setHistory] = useState<(string | ReactNode)[]>([]); // Array(65).fill("test")
 
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLDivElement>(null);
@@ -46,6 +47,20 @@ function App() {
   useEffect(() => {
     inputRef.current?.scrollIntoView();
   });
+
+  const runCommand = async (commandToRun: string) => {
+    try {
+      const command = commands.find(({ command }) => commandToRun === command);
+
+      if (!command) {
+        throw new Error("Command not found!");
+      }
+
+      setHistory((prevHistory) => [...prevHistory, command.result]);
+    } catch (e: unknown) {
+      setHistory((prevHistory) => [...prevHistory, (e as Error).message]);
+    }
+  };
 
   const handleKeyUp = (e: KeyboardEvent<HTMLImageElement>) => {
     // TODO mobile devices, capslock/shift
@@ -60,8 +75,14 @@ function App() {
 
         break;
       case "Enter":
-        setHistory([...history, input]);
+        if (!input) {
+          return;
+        }
+
+        setHistory((prevHistory) => [...prevHistory, input]);
         setInput("");
+
+        runCommand(input);
 
         break;
       default: {
