@@ -124,7 +124,7 @@ function App() {
           // TODO key
           history.map((command, i) => (
             <div key={i}>
-              <p>{command}</p>
+              <div>{command}</div>
               <br />
             </div>
           ))
