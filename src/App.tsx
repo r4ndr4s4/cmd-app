@@ -2,7 +2,8 @@ import styled from "@emotion/styled";
 import { useState, KeyboardEvent, useRef, useEffect, ReactNode } from "react";
 
 import { allowedInputKeys } from "./utils";
-import commands from "./assets/commands";
+import Command from "./Command";
+import getCommands from "./assets/commands";
 
 const Container = styled.div`
   width: 100vw;
@@ -11,11 +12,6 @@ const Container = styled.div`
 
   p {
     margin: 0;
-  }
-
-  span {
-    animation: blink 1s step-end infinite;
-    border-bottom: 2px solid white;
   }
 
   @keyframes blink {
@@ -27,6 +23,11 @@ const Container = styled.div`
       border-color: #fff;
     }
   }
+`;
+
+const Caret = styled.span`
+  animation: blink 1s step-end infinite;
+  border-bottom: 2px solid white;
 `;
 
 const Input = styled.div`
@@ -48,8 +49,11 @@ function App() {
     inputRef.current?.scrollIntoView();
   });
 
+  const formatCommand = (command: string) => `> ${command}`;
+
   const runCommand = async (commandToRun: string) => {
     try {
+      const commands = getCommands(callCommand);
       const command = commands.find(({ command }) => commandToRun === command);
 
       if (!command) {
@@ -60,6 +64,15 @@ function App() {
     } catch (e: unknown) {
       setHistory((prevHistory) => [...prevHistory, (e as Error).message]);
     }
+  };
+
+  const callCommand = (command: string) => {
+    if (!command) {
+      return;
+    }
+
+    setHistory((prevHistory) => [...prevHistory, formatCommand(command)]);
+    runCommand(command);
   };
 
   const handleKeyUp = (e: KeyboardEvent<HTMLImageElement>) => {
@@ -79,7 +92,7 @@ function App() {
           return;
         }
 
-        setHistory((prevHistory) => [...prevHistory, input]);
+        setHistory((prevHistory) => [...prevHistory, formatCommand(input)]);
         setInput("");
 
         runCommand(input);
@@ -99,19 +112,28 @@ function App() {
   return (
     <Container onKeyUp={handleKeyUp} tabIndex={0} ref={containerRef}>
       <p>Hello World!</p>
+      <p>
+        Welcome to my personal <del>site</del> app. Type{" "}
+        <Command cb={callCommand}>commands</Command> and press Enter (or click
+        on the command) to see what can you do around here.
+      </p>
+      <br />
 
       <div>
         {
           // TODO key
           history.map((command, i) => (
-            <p key={i}>{command}</p>
+            <>
+              <p key={i}>{command}</p>
+              <br />
+            </>
           ))
         }
       </div>
 
       <Input ref={inputRef}>
-        {input}
-        <span>&nbsp;</span>
+        {formatCommand(input)}
+        <Caret>&nbsp;</Caret>
       </Input>
     </Container>
   );
