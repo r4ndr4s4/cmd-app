@@ -2,8 +2,10 @@ import styled from "@emotion/styled";
 import { useState, KeyboardEvent, useRef, useEffect, ReactNode } from "react";
 
 import { allowedInputKeys, formatCommand } from "./utils";
-import Command from "./Command";
 import getCommands from "./assets/commands";
+import Input from "./components/Input";
+import History from "./components/History";
+import Greeting from "./components/Greeting";
 
 const Container = styled.div`
   width: 100vw;
@@ -13,30 +15,11 @@ const Container = styled.div`
   p {
     margin: 0;
   }
-
-  @keyframes blink {
-    from,
-    to {
-      border-color: transparent;
-    }
-    50% {
-      border-color: #fff;
-    }
-  }
-`;
-
-const Caret = styled.span`
-  animation: blink 1s step-end infinite;
-  border-bottom: 2px solid white;
-`;
-
-const Input = styled.div`
-  padding-bottom: 10px;
 `;
 
 function App() {
   const [input, setInput] = useState("");
-  const [history, setHistory] = useState<(string | ReactNode)[]>([]); // Array(65).fill("test")
+  const [history, setHistory] = useState<(string | ReactNode)[]>([]); // Array(31).fill("test")
 
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLDivElement>(null);
@@ -106,33 +89,14 @@ function App() {
     }
   };
 
-  // TODO destructure
   return (
     <Container onKeyUp={handleKeyUp} tabIndex={0} ref={containerRef}>
-      <p>Hello World!</p>
-      <p>
-        Welcome to my personal <del>site</del> app. Type{" "}
-        <Command cb={callCommand}>commands</Command> and press Enter (or click
-        on the command) to see what you can do here.
-      </p>
+      <Greeting cb={callCommand} />
       <br />
 
-      <div>
-        {
-          // TODO key
-          history.map((command, i) => (
-            <div key={i}>
-              <div>{command}</div>
-              <br />
-            </div>
-          ))
-        }
-      </div>
+      <History commands={history} />
 
-      <Input ref={inputRef}>
-        {formatCommand(input)}
-        <Caret>&nbsp;</Caret>
-      </Input>
+      <Input _ref={inputRef} input={input} />
     </Container>
   );
 }

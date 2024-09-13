@@ -1,5 +1,10 @@
 import styled from "@emotion/styled";
 
+const Container = styled.span`
+  font-weight: bold;
+  cursor: pointer;
+`;
+
 function Command({
   children,
   cb,
@@ -7,11 +12,6 @@ function Command({
   children: string;
   cb: (command: string) => void;
 }) {
-  const Container = styled.span`
-    font-weight: bold;
-    cursor: pointer;
-  `;
-
   return <Container onClick={() => cb(children)}>{children}</Container>;
 }
 
