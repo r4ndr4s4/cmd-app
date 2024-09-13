@@ -1,8 +1,8 @@
 import { KeyboardEvent, useRef, useEffect } from "react";
 import styled from "@emotion/styled";
 
-import { runCommand, useStore } from "./store";
-import { allowedInputKeys, formatCommand } from "./utils";
+import { runCommand, useStore } from "./utils/store";
+import { allowedInputKeys, formatCommand } from "./utils/utils";
 import Input from "./components/Input";
 import History from "./components/History";
 import Greeting from "./components/Greeting";

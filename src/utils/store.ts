@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import { create } from "zustand";
 
 import { formatCommand } from "./utils";
-import getCommands from "./commands";
+import getCommands from "../commands";
 
 interface State {
   input: string;
