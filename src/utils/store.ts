@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { create } from "zustand";
+import { devtools } from "zustand/middleware";
 
 import { formatCommand } from "./utils";
 import getCommands from "../commands";
@@ -9,10 +10,13 @@ interface State {
   history: (string | ReactNode)[];
 }
 
-export const useStore = create<State>(() => ({
-  input: "",
-  history: [], // Array(31).fill("test")
-}));
+// TODO typing
+export const useStore = create<State>(
+  devtools(() => ({
+    input: "",
+    history: [], // Array(31).fill("test")
+  }))
+);
 
 export const callCommand = (command: string) => {
   if (!command) {
