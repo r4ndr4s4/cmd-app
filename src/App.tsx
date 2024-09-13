@@ -68,17 +68,20 @@ function App() {
         setInput(input.slice(0, input.length - 1));
 
         break;
-      case "Enter":
-        if (!input) {
+      case "Enter": {
+        const command = input.trim();
+
+        if (!command) {
           return;
         }
 
-        setHistory((prevHistory) => [...prevHistory, formatCommand(input)]);
-        runCommand(input);
+        setHistory((prevHistory) => [...prevHistory, formatCommand(command)]);
+        runCommand(command);
 
         setInput("");
 
         break;
+      }
       default: {
         const currentCommand = `${input}${e.key}`; // TODO input
 
