@@ -115,7 +115,7 @@ function App() {
       <p>
         Welcome to my personal <del>site</del> app. Type{" "}
         <Command cb={callCommand}>commands</Command> and press Enter (or click
-        on the command) to see what can you do around here.
+        on the command) to see what you can do here.
       </p>
       <br />
 

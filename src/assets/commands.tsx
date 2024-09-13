@@ -18,9 +18,9 @@ const getCommands = (cb: (command: string) => void) => {
           <Pre>
             <p><Command cb={cb}>commands</Command>: Show this list of possible commands</p>
             <p><Command cb={cb}>intro</Command>:    Show a short introduction about me</p>
-            <p><Command cb={cb}>stack</Command>:    Show what am I using for development currently</p>
+            <p><Command cb={cb}>stack</Command>:    Show what I am using for development currently</p>
             <p><Command cb={cb}>projects</Command>: Show the list of my hobby projects</p>
-            <p><Command cb={cb}>learning</Command>: Show what am I learning currently</p>
+            <p><Command cb={cb}>learning</Command>: Show what I am learning currently</p>
             <p><Command cb={cb}>cv</Command>:       Request my current CV</p>
             <p><Command cb={cb}>contact</Command>:  Show my e-mail address</p>
             <p><Command cb={cb}>message</Command>:  Send me a message here anonymously</p>
