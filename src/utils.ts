@@ -29,3 +29,5 @@ export const allowedInputKeys = [
   "Enter",
   " ",
 ];
+
+export const formatCommand = (command: string) => `> ${command}`;

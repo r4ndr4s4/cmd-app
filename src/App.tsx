@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { useState, KeyboardEvent, useRef, useEffect, ReactNode } from "react";
 
-import { allowedInputKeys } from "./utils";
+import { allowedInputKeys, formatCommand } from "./utils";
 import Command from "./Command";
 import getCommands from "./assets/commands";
 
@@ -49,8 +49,6 @@ function App() {
     inputRef.current?.scrollIntoView();
   });
 
-  const formatCommand = (command: string) => `> ${command}`;
-
   const runCommand = async (commandToRun: string) => {
     try {
       const commands = getCommands(callCommand);
@@ -93,9 +91,9 @@ function App() {
         }
 
         setHistory((prevHistory) => [...prevHistory, formatCommand(input)]);
-        setInput("");
-
         runCommand(input);
+
+        setInput("");
 
         break;
       default: {
