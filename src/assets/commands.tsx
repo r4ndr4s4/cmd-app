@@ -7,7 +7,7 @@ const Pre = styled.div`
   white-space: pre;
 `;
 
-const getCommands = (cb: (command: string) => void) => {
+const getCommands = () => {
   // prettier-ignore
   return [
     {
@@ -16,15 +16,15 @@ const getCommands = (cb: (command: string) => void) => {
         <>
           <p>Possible commands:</p>
           <Pre>
-            <p><Command cb={cb}>commands</Command>: Show this list of possible commands</p>
-            <p><Command cb={cb}>intro</Command>:    Show a short introduction about me</p>
-            <p><Command cb={cb}>stack</Command>:    Show what I am using for development currently</p>
-            <p><Command cb={cb}>projects</Command>: Show the list of my hobby projects</p>
-            <p><Command cb={cb}>learning</Command>: Show what I am learning currently</p>
-            <p><Command cb={cb}>cv</Command>:       Request my current CV</p>
-            <p><Command cb={cb}>contact</Command>:  Show my e-mail address</p>
-            <p><Command cb={cb}>message</Command>:  Send me a message here anonymously</p>
-            <p><Command cb={cb}>source</Command>:   Show the link to the source code of this <del>site</del> app</p>
+            <p><Command>commands</Command>: Show this list of possible commands</p>
+            <p><Command>intro</Command>:    Show a short introduction about me</p>
+            <p><Command>stack</Command>:    Show what I am using for development currently</p>
+            <p><Command>projects</Command>: Show the list of my hobby projects</p>
+            <p><Command>learning</Command>: Show what I am learning currently</p>
+            <p><Command>cv</Command>:       Request my current CV</p>
+            <p><Command>contact</Command>:  Show my e-mail address</p>
+            <p><Command>message</Command>:  Send me a message here anonymously</p>
+            <p><Command>source</Command>:   Show the link to the source code of this <del>site</del> app</p>
           </Pre>
         </>
       ),

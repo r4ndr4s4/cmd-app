@@ -1,8 +1,8 @@
+import { KeyboardEvent, useRef, useEffect } from "react";
 import styled from "@emotion/styled";
-import { useState, KeyboardEvent, useRef, useEffect, ReactNode } from "react";
 
+import { runCommand, useStore } from "./store";
 import { allowedInputKeys, formatCommand } from "./utils";
-import getCommands from "./assets/commands";
 import Input from "./components/Input";
 import History from "./components/History";
 import Greeting from "./components/Greeting";
@@ -18,8 +18,7 @@ const Container = styled.div`
 `;
 
 function App() {
-  const [input, setInput] = useState("");
-  const [history, setHistory] = useState<(string | ReactNode)[]>([]); // Array(31).fill("test")
+  const { input, history } = useStore();
 
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLDivElement>(null);
@@ -32,30 +31,6 @@ function App() {
     inputRef.current?.scrollIntoView();
   });
 
-  const runCommand = async (commandToRun: string) => {
-    try {
-      const commands = getCommands(callCommand);
-      const command = commands.find(({ command }) => commandToRun === command);
-
-      if (!command) {
-        throw new Error("Command not found!");
-      }
-
-      setHistory((prevHistory) => [...prevHistory, command.result]);
-    } catch (e: unknown) {
-      setHistory((prevHistory) => [...prevHistory, (e as Error).message]);
-    }
-  };
-
-  const callCommand = (command: string) => {
-    if (!command) {
-      return;
-    }
-
-    setHistory((prevHistory) => [...prevHistory, formatCommand(command)]);
-    runCommand(command);
-  };
-
   const handleKeyUp = (e: KeyboardEvent<HTMLImageElement>) => {
     // TODO mobile devices, capslock/shift
 
@@ -65,7 +40,9 @@ function App() {
 
     switch (e.key) {
       case "Backspace":
-        setInput(input.slice(0, input.length - 1));
+        useStore.setState(() => ({
+          input: input.slice(0, input.length - 1),
+        }));
 
         break;
       case "Enter": {
@@ -75,17 +52,23 @@ function App() {
           return;
         }
 
-        setHistory((prevHistory) => [...prevHistory, formatCommand(command)]);
+        useStore.setState((state) => ({
+          history: [...state.history, formatCommand(command)],
+        }));
         runCommand(command);
 
-        setInput("");
+        useStore.setState(() => ({
+          input: "",
+        }));
 
         break;
       }
       default: {
         const currentCommand = `${input}${e.key}`; // TODO input
 
-        setInput(currentCommand);
+        useStore.setState(() => ({
+          input: currentCommand,
+        }));
 
         break;
       }
@@ -94,7 +77,7 @@ function App() {
 
   return (
     <Container onKeyUp={handleKeyUp} tabIndex={0} ref={containerRef}>
-      <Greeting cb={callCommand} />
+      <Greeting />
       <br />
 
       <History commands={history} />
