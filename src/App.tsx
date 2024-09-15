@@ -3,10 +3,10 @@ import styled from "@emotion/styled";
 
 import {
   runCommand,
-  // SETHISTORY_ENTER,
-  // SETINPUT_BACKSPACE,
-  // SETINPUT_ENTER,
-  // SETINPUT_TYPE,
+  SETHISTORY_ENTER,
+  SETINPUT_BACKSPACE,
+  SETINPUT_ENTER,
+  SETINPUT_TYPE,
   useStore,
 } from "./utils/store";
 import { allowedInputKeys, formatCommand } from "./utils/utils";
@@ -51,8 +51,8 @@ function App() {
           () => ({
             input: input.slice(0, input.length - 1),
           }),
-          undefined
-          // { type: SETINPUT_BACKSPACE }
+          undefined,
+          { type: SETINPUT_BACKSPACE }
         );
 
         break;
@@ -64,11 +64,11 @@ function App() {
         }
 
         useStore.setState(
-          (state) => {
-            state.history.push(formatCommand(command));
-          },
-          undefined
-          // { type: SETHISTORY_ENTER }
+          (state) => ({
+            history: [...state.history, formatCommand(command)],
+          }),
+          undefined,
+          { type: SETHISTORY_ENTER }
         );
         runCommand(command);
 
@@ -76,8 +76,8 @@ function App() {
           () => ({
             input: "",
           }),
-          undefined
-          // { type: SETINPUT_ENTER }
+          undefined,
+          { type: SETINPUT_ENTER }
         );
 
         break;
@@ -89,8 +89,8 @@ function App() {
           () => ({
             input: currentCommand,
           }),
-          undefined
-          // { type: SETINPUT_TYPE }
+          undefined,
+          { type: SETINPUT_TYPE }
         );
 
         break;

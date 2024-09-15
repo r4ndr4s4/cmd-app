@@ -1,7 +1,6 @@
 import { ReactNode } from "react";
 import { create } from "zustand";
-// import { devtools } from "zustand/middleware";
-import { immer } from "zustand/middleware/immer";
+import { devtools } from "zustand/middleware";
 
 import { formatCommand } from "./utils";
 import getCommands from "../commands";
@@ -24,7 +23,7 @@ const initialState: State = {
   history: [], // Array(31).fill("test")
 };
 
-export const useStore = create<State>()(immer(() => initialState));
+export const useStore = create<State>()(devtools(() => initialState));
 
 export const callCommand = (command: string) => {
   if (!command) {
@@ -32,11 +31,11 @@ export const callCommand = (command: string) => {
   }
 
   useStore.setState(
-    (state) => {
-      state.history.push(formatCommand(command));
-    },
-    undefined
-    // { type: SETHISTORY_CALLCOMMAND }
+    (state) => ({
+      history: [...state.history, formatCommand(command)],
+    }),
+    undefined,
+    { type: SETHISTORY_CALLCOMMAND }
   );
   runCommand(command);
 };
@@ -51,19 +50,19 @@ export const runCommand = (commandToRun: string) => {
     }
 
     useStore.setState(
-      (state) => {
-        state.history.push(command.result);
-      },
-      undefined
-      // { type: SETHISTORY_RUNCOMMAND }
+      (state) => ({
+        history: [...state.history, command.result],
+      }),
+      undefined,
+      { type: SETHISTORY_RUNCOMMAND }
     );
   } catch (e: unknown) {
     useStore.setState(
-      (state) => {
-        state.history.push((e as Error).message);
-      },
-      undefined
-      // { type: SETHISTORY_RUNCOMMAND }
+      (state) => ({
+        history: [...state.history, (e as Error).message],
+      }),
+      undefined,
+      { type: SETHISTORY_RUNCOMMAND }
     );
   }
 };
