@@ -24,7 +24,12 @@ const initialState: State = {
   history: [], // Array(31).fill("test")
 };
 
-export const useStore = create<State>()(devtools(immer(() => initialState)));
+export const useStore = create<State>()(
+  devtools(
+    immer(() => initialState),
+    { enabled: import.meta.env.DEV }
+  )
+);
 
 export const callCommand = (command: string) => {
   if (!command) {
