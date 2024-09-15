@@ -1,7 +1,14 @@
 import { KeyboardEvent, useRef, useEffect } from "react";
 import styled from "@emotion/styled";
 
-import { runCommand, useStore } from "./utils/store";
+import {
+  runCommand,
+  SETHISTORY_ENTER,
+  SETINPUT_BACKSPACE,
+  SETINPUT_ENTER,
+  SETINPUT_TYPE,
+  useStore,
+} from "./utils/store";
 import { allowedInputKeys, formatCommand } from "./utils/utils";
 import Input from "./components/Input";
 import History from "./components/History";
@@ -40,9 +47,13 @@ function App() {
 
     switch (e.key) {
       case "Backspace":
-        useStore.setState(() => ({
-          input: input.slice(0, input.length - 1),
-        }));
+        useStore.setState(
+          () => ({
+            input: input.slice(0, input.length - 1),
+          }),
+          undefined,
+          { type: SETINPUT_BACKSPACE }
+        );
 
         break;
       case "Enter": {
@@ -52,23 +63,35 @@ function App() {
           return;
         }
 
-        useStore.setState((state) => ({
-          history: [...state.history, formatCommand(command)],
-        }));
+        useStore.setState(
+          (state) => {
+            state.history.push(formatCommand(command));
+          },
+          undefined,
+          { type: SETHISTORY_ENTER }
+        );
         runCommand(command);
 
-        useStore.setState(() => ({
-          input: "",
-        }));
+        useStore.setState(
+          () => ({
+            input: "",
+          }),
+          undefined,
+          { type: SETINPUT_ENTER }
+        );
 
         break;
       }
       default: {
         const currentCommand = `${input}${e.key}`; // TODO input
 
-        useStore.setState(() => ({
-          input: currentCommand,
-        }));
+        useStore.setState(
+          () => ({
+            input: currentCommand,
+          }),
+          undefined,
+          { type: SETINPUT_TYPE }
+        );
 
         break;
       }
