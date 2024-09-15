@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { create } from "zustand";
-import { devtools } from "zustand/middleware";
+// import { devtools } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 
 import { formatCommand } from "./utils";
@@ -24,12 +24,7 @@ const initialState: State = {
   history: [], // Array(31).fill("test")
 };
 
-export const useStore = create<State>()(
-  devtools(
-    immer(() => initialState),
-    { enabled: import.meta.env.DEV }
-  )
-);
+export const useStore = create<State>()(immer(() => initialState));
 
 export const callCommand = (command: string) => {
   if (!command) {
@@ -40,8 +35,8 @@ export const callCommand = (command: string) => {
     (state) => {
       state.history.push(formatCommand(command));
     },
-    undefined,
-    { type: SETHISTORY_CALLCOMMAND }
+    undefined
+    // { type: SETHISTORY_CALLCOMMAND }
   );
   runCommand(command);
 };
@@ -59,16 +54,16 @@ export const runCommand = (commandToRun: string) => {
       (state) => {
         state.history.push(command.result);
       },
-      undefined,
-      { type: SETHISTORY_RUNCOMMAND }
+      undefined
+      // { type: SETHISTORY_RUNCOMMAND }
     );
   } catch (e: unknown) {
     useStore.setState(
       (state) => {
         state.history.push((e as Error).message);
       },
-      undefined,
-      { type: SETHISTORY_RUNCOMMAND }
+      undefined
+      // { type: SETHISTORY_RUNCOMMAND }
     );
   }
 };
