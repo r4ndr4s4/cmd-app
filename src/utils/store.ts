@@ -35,7 +35,7 @@ export const callCommand = (command: string) => {
       history: [...state.history, formatCommand(command)],
     }),
     undefined,
-    { type: SETHISTORY_CALLCOMMAND }
+    { type: SETHISTORY_CALLCOMMAND, command }
   );
   runCommand(command);
 };
@@ -54,7 +54,7 @@ export const runCommand = (commandToRun: string) => {
         history: [...state.history, command.result],
       }),
       undefined,
-      { type: SETHISTORY_RUNCOMMAND }
+      { type: SETHISTORY_RUNCOMMAND, command: command.command }
     );
   } catch (e: unknown) {
     useStore.setState(

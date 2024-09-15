@@ -46,16 +46,19 @@ function App() {
     }
 
     switch (e.key) {
-      case "Backspace":
+      case "Backspace": {
+        const currentInput = input.slice(0, input.length - 1);
+
         useStore.setState(
           () => ({
-            input: input.slice(0, input.length - 1),
+            input: currentInput,
           }),
           undefined,
-          { type: SETINPUT_BACKSPACE }
+          { type: SETINPUT_BACKSPACE, input: currentInput }
         );
 
         break;
+      }
       case "Enter": {
         const command = input.trim();
 
@@ -68,7 +71,7 @@ function App() {
             history: [...state.history, formatCommand(command)],
           }),
           undefined,
-          { type: SETHISTORY_ENTER }
+          { type: SETHISTORY_ENTER, command }
         );
         runCommand(command);
 
@@ -77,20 +80,20 @@ function App() {
             input: "",
           }),
           undefined,
-          { type: SETINPUT_ENTER }
+          { type: SETINPUT_ENTER, input: "" }
         );
 
         break;
       }
       default: {
-        const currentCommand = `${input}${e.key}`; // TODO input
+        const currentInput = `${input}${e.key}`; // TODO input
 
         useStore.setState(
           () => ({
-            input: currentCommand,
+            input: currentInput,
           }),
           undefined,
-          { type: SETINPUT_TYPE }
+          { type: SETINPUT_TYPE, input: currentInput }
         );
 
         break;
