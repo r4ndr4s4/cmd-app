@@ -13,15 +13,12 @@ import { allowedInputKeys, formatCommand } from "./utils/utils";
 import Input from "./components/Input";
 import History from "./components/History";
 import Greeting from "./components/Greeting";
+import FirstScreen from "./components/Post/FirstScreen";
 
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
   overflow-x: hidden;
-
-  p {
-    margin: 0;
-  }
 `;
 
 function App() {
@@ -100,6 +97,8 @@ function App() {
       }
     }
   };
+
+  return <FirstScreen />;
 
   return (
     <Container onKeyUp={handleKeyUp} tabIndex={0} ref={containerRef}>

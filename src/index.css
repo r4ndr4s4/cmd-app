@@ -1,6 +1,10 @@
 body {
-    background-color: black;
-    color: white;
-    margin: 0;
-    font-family: "Courier New", Courier, monospace;
+  background-color: black;
+  color: white;
+  margin: 0;
+  font-family: "Courier New", Courier, monospace;
+}
+
+p {
+  margin: 0;
 }
