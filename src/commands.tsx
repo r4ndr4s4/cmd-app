@@ -1,11 +1,5 @@
-import styled from "@emotion/styled";
-
 import Command from "./components/App/Command";
-
-// eslint-disable-next-line react-refresh/only-export-components
-const Pre = styled.div`
-  white-space: pre;
-`;
+import { Pre } from "./utils/styles";
 
 const getCommands = () => {
   // prettier-ignore
