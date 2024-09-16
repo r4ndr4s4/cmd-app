@@ -1,4 +1,4 @@
-import { KeyboardEvent, useRef, useEffect } from "react";
+import { KeyboardEvent, useRef, useEffect, useState } from "react";
 import styled from "@emotion/styled";
 
 import {
@@ -8,12 +8,12 @@ import {
   SETINPUT_ENTER,
   SETINPUT_TYPE,
   useStore,
-} from "./utils/store";
-import { allowedInputKeys, formatCommand } from "./utils/utils";
-import Input from "./components/Input";
-import History from "./components/History";
-import Greeting from "./components/Greeting";
-import FirstScreen from "./components/Post/FirstScreen";
+} from "../utils/store";
+import { allowedInputKeys, formatCommand } from "../utils/utils";
+import Input from "./App/Input";
+import History from "./App/History";
+import Greeting from "./App/Greeting";
+import Post from "./Post";
 
 const Container = styled.div`
   width: 100vw;
@@ -24,8 +24,14 @@ const Container = styled.div`
 function App() {
   const { input, history } = useStore();
 
+  const [isAppRender, setAppRender] = useState(false);
+
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setTimeout(() => setAppRender(true), 3000);
+  }, []);
 
   useEffect(() => {
     containerRef.current?.focus();
@@ -98,9 +104,7 @@ function App() {
     }
   };
 
-  return <FirstScreen />;
-
-  return (
+  return isAppRender ? (
     <Container onKeyUp={handleKeyUp} tabIndex={0} ref={containerRef}>
       <Greeting />
       <br />
@@ -109,6 +113,8 @@ function App() {
 
       <Input _ref={inputRef} input={input} />
     </Container>
+  ) : (
+    <Post />
   );
 }
 

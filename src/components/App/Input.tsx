@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-import { formatCommand } from "../utils/utils";
+import { formatCommand } from "../../utils/utils";
 
 const Container = styled.div`
   padding-bottom: 10px;

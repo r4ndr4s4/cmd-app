@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-import Command from "./components/Command";
+import Command from "./components/App/Command";
 
 // eslint-disable-next-line react-refresh/only-export-components
 const Pre = styled.div`
