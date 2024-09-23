@@ -25,11 +25,11 @@ const Container = styled.div`
 `;
 
 function App() {
-  const { input, history } = useStore();
-
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLDivElement>(null);
 
+  const input = useStore((state) => state.input);
+  const history = useStore((state) => state.history);
   const postState = useStore((state) => state.postState);
 
   // TODO make this change "event driven"
