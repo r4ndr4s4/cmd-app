@@ -4,7 +4,7 @@ function History({ commands }: { commands: (string | ReactNode)[] }) {
   return (
     <div>
       {
-        // TODO key
+        // TODO use uuid keys
         commands.map((command, i) => (
           <div key={i}>
             <div>{command}</div>

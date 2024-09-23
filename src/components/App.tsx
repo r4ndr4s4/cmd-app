@@ -42,7 +42,7 @@ function App() {
   });
 
   const handleKeyUp = (e: KeyboardEvent<HTMLImageElement>) => {
-    // TODO mobile devices, capslock/shift
+    // TODO handle mobile devices, capslock/shift
 
     if (!allowedInputKeys.includes(e.key)) {
       return;
@@ -89,7 +89,7 @@ function App() {
         break;
       }
       default: {
-        const currentInput = `${input}${e.key}`; // TODO input
+        const currentInput = `${input}${e.key}`; // TODO debounce input
 
         useStore.setState(
           () => ({

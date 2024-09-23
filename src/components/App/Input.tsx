@@ -21,7 +21,7 @@ const Caret = styled.span`
   }
 `;
 
-// TODO _ref
+// TODO rename _ref
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function Input({ _ref, input }: { _ref: any; input: string }) {
   return (

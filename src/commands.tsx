@@ -100,12 +100,12 @@ const getCommands = () => {
       ),
     },
     {
-      // TODO
+      // TODO implement
       command: "message",
       result: <p>-</p>,
     },
     {
-      // TODO
+      // TODO implement
       command: "cv",
       result: <p>-</p>,
     },
