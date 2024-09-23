@@ -1,19 +1,19 @@
 import { KeyboardEvent, useRef, useEffect, useState } from "react";
 import styled from "@emotion/styled";
 
-import {
-  runCommand,
-  SETHISTORY_ENTER,
-  SETINPUT_BACKSPACE,
-  SETINPUT_ENTER,
-  SETINPUT_TYPE,
-  useStore,
-} from "../utils/store";
+import { useStore } from "../store";
 import { allowedInputKeys, formatCommand } from "../utils/utils";
 import Input from "./App/Input";
 import History from "./App/History";
 import Greeting from "./App/Greeting";
 import Post from "./Post";
+import {
+  SETHISTORY_ENTER,
+  SETINPUT_BACKSPACE,
+  SETINPUT_ENTER,
+  SETINPUT_TYPE,
+} from "../store/types";
+import { runCommand } from "../store/actions";
 
 const Container = styled.div`
   width: 100vw;
@@ -30,7 +30,7 @@ function App() {
   const inputRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    setTimeout(() => setAppRender(true), 3000);
+    setTimeout(() => setAppRender(true), 3000); // TODO use DelayedRender
   }, []);
 
   useEffect(() => {
@@ -103,6 +103,8 @@ function App() {
       }
     }
   };
+
+  return <Post />; // TODO remove
 
   return isAppRender ? (
     <Container onKeyUp={handleKeyUp} tabIndex={0} ref={containerRef}>

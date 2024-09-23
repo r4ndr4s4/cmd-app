@@ -1,0 +1,29 @@
+import { ReactNode } from "react";
+
+export interface State {
+  input: string;
+  history: (string | ReactNode)[];
+
+  postState: PostState;
+}
+
+// TODO use enum
+export const SETINPUT_BACKSPACE = "setInput/backspace";
+export const SETINPUT_ENTER = "setInput/enter";
+export const SETINPUT_TYPE = "setInput/type";
+
+export const SETHISTORY_ENTER = "setHistory/enter";
+export const SETHISTORY_CALLCOMMAND = "setHistory/callCommand";
+export const SETHISTORY_RUNCOMMAND = "setHistory/runCommand";
+
+// TODO use string members to show up in redux devtools correctly
+export enum PostState {
+  Init = 0,
+  MemoryTestShow,
+  MemoryTestStart,
+  MemoryTestDone,
+  DeviceDetectionShow,
+  // TODO cleanup
+  // DeviceDetectionStart,
+  // DeviceDetectionDone,
+}

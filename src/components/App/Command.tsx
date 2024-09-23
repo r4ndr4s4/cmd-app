@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-import { callCommand } from "../../utils/store";
+import { callCommand } from "../../store/actions";
 
 const Container = styled.span`
   font-weight: bold;

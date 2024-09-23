@@ -1,29 +1,7 @@
-import { ReactNode } from "react";
-import { create } from "zustand";
-import { devtools } from "zustand/middleware";
-
-import { formatCommand } from "./utils";
 import getCommands from "../commands";
-
-export const SETINPUT_BACKSPACE = "setInput/backspace";
-export const SETINPUT_ENTER = "setInput/enter";
-export const SETINPUT_TYPE = "setInput/type";
-
-export const SETHISTORY_ENTER = "setHistory/enter";
-export const SETHISTORY_CALLCOMMAND = "setHistory/callCommand";
-export const SETHISTORY_RUNCOMMAND = "setHistory/runCommand";
-
-interface State {
-  input: string;
-  history: (string | ReactNode)[];
-}
-
-const initialState: State = {
-  input: "",
-  history: [], // Array(31).fill("test")
-};
-
-export const useStore = create<State>()(devtools(() => initialState));
+import { formatCommand } from "../utils/utils";
+import { useStore } from ".";
+import { SETHISTORY_CALLCOMMAND, SETHISTORY_RUNCOMMAND } from "./types";
 
 export const callCommand = (command: string) => {
   if (!command) {
