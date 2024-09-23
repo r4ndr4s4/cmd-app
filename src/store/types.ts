@@ -18,12 +18,15 @@ export const SETHISTORY_RUNCOMMAND = "setHistory/runCommand";
 
 // TODO use string members to show up in redux devtools correctly
 export enum PostState {
-  Init = 0,
+  // first screen
+  PostFirstScreenInit = 0,
   MemoryTestShow,
   MemoryTestStart,
   MemoryTestDone,
   DeviceDetectionShow,
-  // TODO cleanup
-  // DeviceDetectionStart,
-  // DeviceDetectionDone,
+
+  // second screen
+  PostSecondScreenInit,
+
+  AppInit,
 }

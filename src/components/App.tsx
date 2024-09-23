@@ -1,4 +1,4 @@
-import { KeyboardEvent, useRef, useEffect, useState } from "react";
+import { KeyboardEvent, useRef, useEffect } from "react";
 import styled from "@emotion/styled";
 
 import { useStore } from "../store";
@@ -8,12 +8,15 @@ import History from "./App/History";
 import Greeting from "./App/Greeting";
 import Post from "./Post";
 import {
+  PostState,
   SETHISTORY_ENTER,
   SETINPUT_BACKSPACE,
   SETINPUT_ENTER,
   SETINPUT_TYPE,
 } from "../store/types";
 import { runCommand } from "../store/actions";
+import Delay from "./common/DelayedRender";
+import useDelayedPostStateChange from "../hooks/useDelayedPostStateChange";
 
 const Container = styled.div`
   width: 100vw;
@@ -24,14 +27,17 @@ const Container = styled.div`
 function App() {
   const { input, history } = useStore();
 
-  const [isAppRender, setAppRender] = useState(false);
-
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    setTimeout(() => setAppRender(true), 3000); // TODO use DelayedRender
-  }, []);
+  const postState = useStore((state) => state.postState);
+
+  // TODO make this change "event driven"
+  useDelayedPostStateChange({
+    from: PostState.PostSecondScreenInit,
+    to: PostState.AppInit,
+    ms: 2000,
+  });
 
   useEffect(() => {
     containerRef.current?.focus();
@@ -104,19 +110,23 @@ function App() {
     }
   };
 
-  return <Post />; // TODO remove
+  return (
+    <>
+      <Delay until={postState >= PostState.AppInit}>
+        <Container onKeyUp={handleKeyUp} tabIndex={0} ref={containerRef}>
+          <Greeting />
+          <br />
 
-  return isAppRender ? (
-    <Container onKeyUp={handleKeyUp} tabIndex={0} ref={containerRef}>
-      <Greeting />
-      <br />
+          <History commands={history} />
 
-      <History commands={history} />
+          <Input _ref={inputRef} input={input} />
+        </Container>
+      </Delay>
 
-      <Input _ref={inputRef} input={input} />
-    </Container>
-  ) : (
-    <Post />
+      <Delay until={postState <= PostState.PostSecondScreenInit}>
+        <Post />
+      </Delay>
+    </>
   );
 }
 

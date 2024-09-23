@@ -7,7 +7,7 @@ const initialState: State = {
   input: "",
   history: [], // Array(31).fill("test")
 
-  postState: PostState.Init,
+  postState: PostState.PostFirstScreenInit,
 };
 
 export const useStore = create<State>()(devtools(() => initialState));

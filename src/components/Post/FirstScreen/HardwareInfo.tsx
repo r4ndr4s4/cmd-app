@@ -16,7 +16,7 @@ function HardwareInfo() {
   const postState = useStore((state) => state.postState);
 
   useDelayedPostStateChange({
-    from: PostState.Init,
+    from: PostState.PostFirstScreenInit,
     to: PostState.MemoryTestShow,
     ms: 1000,
   });

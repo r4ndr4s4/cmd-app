@@ -1,3 +1,5 @@
+import { useEffect, useRef, useState } from "react";
+
 import { useStore } from "../../../store";
 import Delay from "../../common/DelayedRender";
 import useDelayedPostStateChange from "../../../hooks/useDelayedPostStateChange";
@@ -10,6 +12,9 @@ const SECONDARY_MASTER_DEVICE = "None";
 const SECONDARY_SLAVE_DEVICE = "None";
 
 function DeviceDetection() {
+  const [deviceDetectionState, setDeviceDetectionState] = useState(0);
+  const intervalRef = useRef<number>(0);
+
   const postState = useStore((state) => state.postState);
 
   useDelayedPostStateChange({
@@ -17,6 +22,38 @@ function DeviceDetection() {
     to: PostState.DeviceDetectionShow,
     ms: 1000,
   });
+
+  useEffect(() => {
+    if (postState < PostState.DeviceDetectionShow || intervalRef.current) {
+      return;
+    }
+
+    intervalRef.current = setInterval(() => {
+      // TODO make secondary device detection(s) longer
+      setDeviceDetectionState(
+        (deviceDetectionState) => deviceDetectionState + 1
+      );
+    }, 1000);
+  }, [postState]);
+
+  useEffect(() => {
+    // first and last tick is an extra sec delay
+    if (deviceDetectionState === 6) {
+      clearInterval(intervalRef.current);
+
+      useStore.setState(
+        () => ({
+          postState: PostState.PostSecondScreenInit,
+        }),
+        undefined,
+        {
+          type: "postState",
+          from: PostState.DeviceDetectionShow,
+          to: PostState.PostSecondScreenInit,
+        }
+      );
+    }
+  }, [deviceDetectionState]);
 
   return (
     <>
@@ -27,27 +64,19 @@ function DeviceDetection() {
         <Delay ms={1000}>
           <p>
             Detecting IDE Primary Master...{" "}
-            <Delay ms={1000} untilRender={NO_DEVICE}>
-              {PRIMARY_MASTER_DEVICE}
-            </Delay>
+            {deviceDetectionState >= 2 ? PRIMARY_MASTER_DEVICE : NO_DEVICE}
           </p>
           <p>
             Detecting IDE Primary Slave...{" "}
-            <Delay ms={2000} untilRender={NO_DEVICE}>
-              {PRIMARY_SLAVE_DEVICE}
-            </Delay>
+            {deviceDetectionState >= 3 ? PRIMARY_SLAVE_DEVICE : NO_DEVICE}
           </p>
           <p>
             Detecting IDE Secondary Master...{" "}
-            <Delay ms={3000} untilRender={NO_DEVICE}>
-              {SECONDARY_MASTER_DEVICE}
-            </Delay>
+            {deviceDetectionState >= 4 ? SECONDARY_MASTER_DEVICE : NO_DEVICE}
           </p>
           <p>
             Detecting IDE Secondary Slave...{" "}
-            <Delay ms={4000} untilRender={NO_DEVICE}>
-              {SECONDARY_SLAVE_DEVICE}
-            </Delay>
+            {deviceDetectionState >= 5 ? SECONDARY_SLAVE_DEVICE : NO_DEVICE}
           </p>
         </Delay>
       </Delay>
