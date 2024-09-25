@@ -4,6 +4,7 @@ import { Pre } from "./utils/styles";
 const getCommands = () => {
   // prettier-ignore
   return [
+    // TODO use a table
     {
       command: "commands",
       result: (
