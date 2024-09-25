@@ -1,4 +1,4 @@
-import Command from "./components/App/Command";
+import Command from "./components/Cmd/Command";
 import { Pre } from "./utils/styles";
 
 const getCommands = () => {

@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 
 import { InlinePre } from "../../../utils/styles";
-import { Container } from "../SecondScreen";
 
 const tableCommon = css`
   border-left: 4px double white;
@@ -62,7 +61,6 @@ function HardwareTable() {
   // prettier-ignore
   return (
     <>
-      <Container>
         <TopTable>
           <tbody>
             <tr>
@@ -135,7 +133,6 @@ function HardwareTable() {
             </tr>
           </tbody>
         </BottomTable>
-      </Container>
     </>
   );
 }
