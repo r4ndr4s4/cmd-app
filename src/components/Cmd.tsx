@@ -15,6 +15,9 @@ import {
 import { runCommand } from "../store/actions";
 
 const Container = styled.div`
+  padding-top: 10px;
+  padding-bottom: 10px;
+
   :focus-visible {
     outline: none;
   }

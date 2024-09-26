@@ -6,8 +6,7 @@ import DeviceDetection from "./FirstScreen/DeviceDetection";
 import Footer from "./FirstScreen/Footer";
 
 const Container = styled.div`
-  height: 100vh;
-
+  height: calc(100vh - 20px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
