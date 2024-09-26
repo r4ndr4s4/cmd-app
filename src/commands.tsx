@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import Command from "./components/Cmd/Command";
 import { Pre } from "./utils/styles";
 

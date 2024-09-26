@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { RefObject } from "react";
 
 import { formatCommand } from "../../utils/utils";
 
@@ -18,8 +19,13 @@ const Caret = styled.span`
 `;
 
 // TODO rename _ref
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function Input({ _ref, input }: { _ref: any; input: string }) {
+function Input({
+  _ref,
+  input,
+}: {
+  _ref: RefObject<HTMLDivElement>;
+  input: string;
+}) {
   return (
     <div ref={_ref}>
       {formatCommand(input)}
