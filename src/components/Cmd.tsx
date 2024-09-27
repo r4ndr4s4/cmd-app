@@ -1,5 +1,6 @@
-import { KeyboardEvent, useRef, useEffect } from "react";
+import { KeyboardEvent, useRef, useEffect, useState } from "react";
 import styled from "@emotion/styled";
+import { useDebouncedCallback } from "use-debounce";
 
 import { useStore } from "../store";
 import { allowedInputKeys, formatCommand } from "../utils/utils";
@@ -24,10 +25,11 @@ const Container = styled.div`
 `;
 
 function Cmd() {
+  const [input, setInput] = useState("");
+
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLDivElement>(null);
 
-  const input = useStore((state) => state.input);
   const history = useStore((state) => state.history);
 
   useEffect(() => {
@@ -37,6 +39,18 @@ function Cmd() {
   useEffect(() => {
     inputRef.current?.scrollIntoView();
   });
+
+  const debouncedInputStateChange = useDebouncedCallback(
+    (type: string) =>
+      useStore.setState(
+        () => ({
+          input,
+        }),
+        undefined,
+        { type, input }
+      ),
+    1000
+  );
 
   const handleKeyUp = (e: KeyboardEvent<HTMLImageElement>) => {
     // TODO handle mobile devices, capslock/shift
@@ -49,13 +63,8 @@ function Cmd() {
       case "Backspace": {
         const currentInput = input.slice(0, input.length - 1);
 
-        useStore.setState(
-          () => ({
-            input: currentInput,
-          }),
-          undefined,
-          { type: SETINPUT_BACKSPACE, input: currentInput }
-        );
+        setInput(currentInput);
+        debouncedInputStateChange(SETINPUT_BACKSPACE);
 
         break;
       }
@@ -66,6 +75,17 @@ function Cmd() {
           return;
         }
 
+        debouncedInputStateChange.flush();
+
+        setInput("");
+        useStore.setState(
+          () => ({
+            input: "",
+          }),
+          undefined,
+          { type: SETINPUT_ENTER, input: "" }
+        );
+
         useStore.setState(
           (state) => ({
             history: [...state.history, formatCommand(command)],
@@ -75,26 +95,13 @@ function Cmd() {
         );
         runCommand(command);
 
-        useStore.setState(
-          () => ({
-            input: "",
-          }),
-          undefined,
-          { type: SETINPUT_ENTER, input: "" }
-        );
-
         break;
       }
       default: {
-        const currentInput = `${input}${e.key}`; // TODO debounce input
+        const currentInput = `${input}${e.key}`;
 
-        useStore.setState(
-          () => ({
-            input: currentInput,
-          }),
-          undefined,
-          { type: SETINPUT_TYPE, input: currentInput }
-        );
+        setInput(currentInput);
+        debouncedInputStateChange(SETINPUT_TYPE);
 
         break;
       }

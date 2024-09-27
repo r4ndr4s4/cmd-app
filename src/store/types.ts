@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 
 export interface State {
-  input: string;
+  input: string; // TODO remove if unused
   history: (string | ReactNode)[];
 
   postState: PostState;
