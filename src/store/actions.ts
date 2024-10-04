@@ -10,7 +10,13 @@ export const callCommand = (command: string) => {
 
   useStore.setState(
     (state) => ({
-      history: [...state.history, formatCommand(command)],
+      history: [
+        ...state.history,
+        {
+          key: crypto.randomUUID(),
+          command: formatCommand(command),
+        },
+      ],
     }),
     undefined,
     { type: SETHISTORY_CALLCOMMAND, command }
@@ -29,7 +35,13 @@ export const runCommand = (commandToRun: string) => {
 
     useStore.setState(
       (state) => ({
-        history: [...state.history, command.result],
+        history: [
+          ...state.history,
+          {
+            key: crypto.randomUUID(),
+            command: command.result,
+          },
+        ],
       }),
       undefined,
       { type: SETHISTORY_RUNCOMMAND, command: command.command }
@@ -37,7 +49,13 @@ export const runCommand = (commandToRun: string) => {
   } catch (e: unknown) {
     useStore.setState(
       (state) => ({
-        history: [...state.history, (e as Error).message],
+        history: [
+          ...state.history,
+          {
+            key: crypto.randomUUID(),
+            command: (e as Error).message,
+          },
+        ],
       }),
       undefined,
       { type: SETHISTORY_RUNCOMMAND }

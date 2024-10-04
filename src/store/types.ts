@@ -1,8 +1,13 @@
 import { ReactNode } from "react";
 
+export interface HistoryCommand {
+  key: string;
+  command: string | ReactNode;
+}
+
 export interface State {
   input: string; // TODO remove if unused
-  history: (string | ReactNode)[];
+  history: HistoryCommand[];
 
   postState: PostState;
 }

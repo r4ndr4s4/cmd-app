@@ -1,18 +1,15 @@
-import { ReactNode } from "react";
+import { HistoryCommand } from "../../store/types";
 
-function History({ commands }: { commands: (string | ReactNode)[] }) {
+function History({ commands }: { commands: HistoryCommand[] }) {
   return (
     <div>
-      {
-        // TODO use uuid keys
-        commands.map((command, i) => (
-          <div key={i}>
-            <div>{command}</div>
+      {commands.map(({ key, command }) => (
+        <div key={key}>
+          <div>{command}</div>
 
-            <br />
-          </div>
-        ))
-      }
+          <br />
+        </div>
+      ))}
     </div>
   );
 }

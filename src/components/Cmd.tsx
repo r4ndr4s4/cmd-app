@@ -1,4 +1,4 @@
-import { KeyboardEvent, useRef, useEffect, useState } from "react";
+import { KeyboardEvent, useRef, useEffect, useState, useCallback } from "react";
 import styled from "@emotion/styled";
 import { useDebouncedCallback } from "use-debounce";
 
@@ -52,61 +52,70 @@ function Cmd() {
     1000
   );
 
-  const handleKeyUp = (e: KeyboardEvent<HTMLImageElement>) => {
-    // TODO handle mobile devices, capslock/shift
+  const handleKeyUp = useCallback(
+    (e: KeyboardEvent<HTMLImageElement>) => {
+      // TODO handle mobile devices, capslock/shift
 
-    if (!allowedInputKeys.includes(e.key)) {
-      return;
-    }
-
-    switch (e.key) {
-      case "Backspace": {
-        const currentInput = input.slice(0, input.length - 1);
-
-        setInput(currentInput);
-        debouncedInputStateChange(SETINPUT_BACKSPACE);
-
-        break;
+      if (!allowedInputKeys.includes(e.key)) {
+        return;
       }
-      case "Enter": {
-        const command = input.trim();
 
-        if (!command) {
-          return;
+      switch (e.key) {
+        case "Backspace": {
+          const currentInput = input.slice(0, input.length - 1);
+
+          setInput(currentInput);
+          debouncedInputStateChange(SETINPUT_BACKSPACE);
+
+          break;
         }
+        case "Enter": {
+          const command = input.trim();
 
-        debouncedInputStateChange.flush();
+          if (!command) {
+            return;
+          }
 
-        setInput("");
-        useStore.setState(
-          () => ({
-            input: "",
-          }),
-          undefined,
-          { type: SETINPUT_ENTER, input: "" }
-        );
+          debouncedInputStateChange.flush();
 
-        useStore.setState(
-          (state) => ({
-            history: [...state.history, formatCommand(command)],
-          }),
-          undefined,
-          { type: SETHISTORY_ENTER, command }
-        );
-        runCommand(command);
+          setInput("");
+          useStore.setState(
+            () => ({
+              input: "",
+            }),
+            undefined,
+            { type: SETINPUT_ENTER, input: "" }
+          );
 
-        break;
+          useStore.setState(
+            (state) => ({
+              history: [
+                ...state.history,
+                {
+                  key: crypto.randomUUID(),
+                  command: formatCommand(command),
+                },
+              ],
+            }),
+            undefined,
+            { type: SETHISTORY_ENTER, command }
+          );
+          runCommand(command);
+
+          break;
+        }
+        default: {
+          const currentInput = `${input}${e.key}`;
+
+          setInput(currentInput);
+          debouncedInputStateChange(SETINPUT_TYPE);
+
+          break;
+        }
       }
-      default: {
-        const currentInput = `${input}${e.key}`;
-
-        setInput(currentInput);
-        debouncedInputStateChange(SETINPUT_TYPE);
-
-        break;
-      }
-    }
-  };
+    },
+    [debouncedInputStateChange, input]
+  );
 
   return (
     <Container onKeyUp={handleKeyUp} tabIndex={0} ref={containerRef}>
