@@ -18,16 +18,15 @@ const Caret = styled.span`
   }
 `;
 
-// TODO rename _ref
 function Input({
-  _ref,
+  inputRef,
   input,
 }: {
-  _ref: RefObject<HTMLDivElement>;
+  inputRef: RefObject<HTMLDivElement>;
   input: string;
 }) {
   return (
-    <div ref={_ref}>
+    <div ref={inputRef}>
       {formatCommand(input)}
 
       <Caret>&nbsp;</Caret>

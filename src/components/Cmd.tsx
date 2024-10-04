@@ -124,7 +124,7 @@ function Cmd() {
 
       <History commands={history} />
 
-      <Input _ref={inputRef} input={input} />
+      <Input inputRef={inputRef} input={input} />
     </Container>
   );
 }
