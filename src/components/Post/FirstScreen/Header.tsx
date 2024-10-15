@@ -1,5 +1,7 @@
 import styled from "@emotion/styled";
 
+import awardBiosLogo from "../../../assets/award_bios_logo.webp";
+
 const Container = styled.div`
   display: flex;
   align-items: center;
@@ -9,7 +11,7 @@ const Container = styled.div`
 function Header() {
   return (
     <Container>
-      <img src="https://placehold.co/36x36" width="36" height="36" />
+      <img src={awardBiosLogo} height="45" />
 
       <div>
         <p>Award Modular BIOS v4.51PG, An Energy Star Ally</p>

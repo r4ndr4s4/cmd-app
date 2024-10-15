@@ -4,6 +4,7 @@ import Header from "./FirstScreen/Header";
 import HardwareInfo from "./FirstScreen/HardwareInfo";
 import DeviceDetection from "./FirstScreen/DeviceDetection";
 import Footer from "./FirstScreen/Footer";
+import energyStarLogo from "../../assets/energy_star_logo.webp";
 
 const Container = styled.div`
   height: calc(100vh - 20px);
@@ -33,7 +34,7 @@ function FirstScreen() {
           <DeviceDetection />
         </div>
 
-        <img src="https://placehold.co/105x105" width="105" height="105" />
+        <img src={energyStarLogo} height="125" />
       </HardwareContainer>
 
       <Footer />
