@@ -7,12 +7,7 @@ import { allowedInputKeys, formatCommand } from "../utils/utils";
 import Input from "./Cmd/Input";
 import History from "./Cmd/History";
 import Greeting from "./Cmd/Greeting";
-import {
-  SETHISTORY_ENTER,
-  SETINPUT_BACKSPACE,
-  SETINPUT_ENTER,
-  SETINPUT_TYPE,
-} from "../store/types";
+import { ActionTypes } from "../store/types";
 import { runCommand } from "../store/actions";
 
 const Container = styled.div`
@@ -65,7 +60,7 @@ function Cmd() {
           const currentInput = input.slice(0, input.length - 1);
 
           setInput(currentInput);
-          debouncedInputStateChange(SETINPUT_BACKSPACE);
+          debouncedInputStateChange(ActionTypes.SetInputBackspace);
 
           break;
         }
@@ -84,7 +79,7 @@ function Cmd() {
               input: "",
             }),
             undefined,
-            { type: SETINPUT_ENTER, input: "" }
+            { type: ActionTypes.SetInputEnter, input: "" }
           );
 
           useStore.setState(
@@ -98,7 +93,7 @@ function Cmd() {
               ],
             }),
             undefined,
-            { type: SETHISTORY_ENTER, command }
+            { type: ActionTypes.SetHistoryEnter, command }
           );
           runCommand(command);
 
@@ -108,7 +103,7 @@ function Cmd() {
           const currentInput = `${input}${e.key}`;
 
           setInput(currentInput);
-          debouncedInputStateChange(SETINPUT_TYPE);
+          debouncedInputStateChange(ActionTypes.SetInputType);
 
           break;
         }

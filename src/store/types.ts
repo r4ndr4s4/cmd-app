@@ -12,14 +12,15 @@ export interface State {
   postState: PostState;
 }
 
-// TODO use enum
-export const SETINPUT_BACKSPACE = "setInput/backspace";
-export const SETINPUT_ENTER = "setInput/enter";
-export const SETINPUT_TYPE = "setInput/type";
+export enum ActionTypes {
+  SetInputBackspace = "setInput/backspace",
+  SetInputEnter = "setInput/enter",
+  SetInputType = "setInput/type",
 
-export const SETHISTORY_ENTER = "setHistory/enter";
-export const SETHISTORY_CALLCOMMAND = "setHistory/callCommand";
-export const SETHISTORY_RUNCOMMAND = "setHistory/runCommand";
+  SetHistoryEnter = "setHistory/enter",
+  SetHistoryCallCommand = "setHistory/callCommand",
+  SetHistoryRunCommand = "setHistory/runCommand",
+}
 
 // TODO use string members to show up in redux devtools correctly
 export enum PostState {

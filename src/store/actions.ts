@@ -1,7 +1,7 @@
 import getCommands from "../commands";
 import { formatCommand } from "../utils/utils";
 import { useStore } from ".";
-import { SETHISTORY_CALLCOMMAND, SETHISTORY_RUNCOMMAND } from "./types";
+import { ActionTypes } from "./types";
 
 export const callCommand = (command: string) => {
   if (!command) {
@@ -19,7 +19,7 @@ export const callCommand = (command: string) => {
       ],
     }),
     undefined,
-    { type: SETHISTORY_CALLCOMMAND, command }
+    { type: ActionTypes.SetHistoryCallCommand, command }
   );
   runCommand(command);
 };
@@ -44,7 +44,7 @@ export const runCommand = (commandToRun: string) => {
         ],
       }),
       undefined,
-      { type: SETHISTORY_RUNCOMMAND, command: command.command }
+      { type: ActionTypes.SetHistoryRunCommand, command: command.command }
     );
   } catch (e: unknown) {
     useStore.setState(
@@ -58,7 +58,7 @@ export const runCommand = (commandToRun: string) => {
         ],
       }),
       undefined,
-      { type: SETHISTORY_RUNCOMMAND }
+      { type: ActionTypes.SetHistoryRunCommand }
     );
   }
 };
