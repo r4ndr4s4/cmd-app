@@ -1,27 +1,98 @@
 /* eslint-disable react/no-unescaped-entities */
+import styled from "@emotion/styled";
+
 import Command from "./components/Cmd/Command";
-import { Pre } from "./utils/styles";
+
+const Table = styled.table`
+  border-spacing: 0;
+
+  th {
+    text-align: left;
+  }
+
+  td {
+    ::before {
+      content: ": ";
+    }
+  }
+`;
 
 const getCommands = () => {
-  // prettier-ignore
   return [
-    // TODO use a table
     {
       command: "commands",
       result: (
         <>
           <p>Possible commands:</p>
-          <Pre>
-            <p><Command>commands</Command>: Show this list of possible commands</p>
-            <p><Command>intro</Command>:    Show a short introduction about me</p>
-            <p><Command>stack</Command>:    Show what I am using for development currently</p>
-            <p><Command>projects</Command>: Show the list of my hobby projects</p>
-            <p><Command>learning</Command>: Show what I am learning currently</p>
-            <p><Command>cv</Command>:       Request my current CV</p>
-            <p><Command>contact</Command>:  Show my e-mail address</p>
-            <p><Command>message</Command>:  Send me a message here anonymously</p>
-            <p><Command>source</Command>:   Show the link to the source code of this <del>site</del> app</p>
-          </Pre>
+
+          <Table>
+            <tbody>
+              <tr>
+                <th scope="row">
+                  <Command>commands</Command>
+                </th>
+                <td>Show this list of possible commands</td>
+              </tr>
+
+              <tr>
+                <th scope="row">
+                  <Command>intro</Command>
+                </th>
+                <td>Show a short introduction about me</td>
+              </tr>
+
+              <tr>
+                <th scope="row">
+                  <Command>stack</Command>
+                </th>
+                <td>Show what I am using for development currently</td>
+              </tr>
+
+              <tr>
+                <th scope="row">
+                  <Command>projects</Command>
+                </th>
+                <td>Show the list of my hobby projects</td>
+              </tr>
+
+              <tr>
+                <th scope="row">
+                  <Command>learning</Command>
+                </th>
+                <td>Show what I am learning currently</td>
+              </tr>
+
+              <tr>
+                <th scope="row">
+                  <Command>cv</Command>
+                </th>
+                <td>Request my current CV</td>
+              </tr>
+
+              <tr>
+                <th scope="row">
+                  <Command>contact</Command>
+                </th>
+                <td>Show my e-mail address</td>
+              </tr>
+
+              <tr>
+                <th scope="row">
+                  <Command>message</Command>
+                </th>
+                <td>Send me a message here anonymously</td>
+              </tr>
+
+              <tr>
+                <th scope="row">
+                  <Command>source</Command>
+                </th>
+                <td>
+                  Show the link to the source code of this <del>site</del> app
+                </td>
+              </tr>
+            </tbody>
+          </Table>
         </>
       ),
     },
@@ -38,9 +109,9 @@ const getCommands = () => {
             been as exciting as what I taught myself: web development.
           </p>
           <p>
-            My new personal site (this <del>site</del> app) is currently under development, and I'm also
-            working on gathering the projects I can and want to publish, along
-            with their code on GitHub.
+            My new personal site (this <del>site</del> app) is currently under
+            development, and I'm also working on gathering the projects I can
+            and want to publish, along with their code on GitHub.
           </p>
         </>
       ),
