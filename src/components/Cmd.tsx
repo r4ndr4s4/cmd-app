@@ -1,6 +1,7 @@
 import { KeyboardEvent, useRef, useEffect, useState, useCallback } from "react";
 import styled from "@emotion/styled";
 import { useDebouncedCallback } from "use-debounce";
+import { nanoid } from "nanoid";
 
 import { useStore } from "../store";
 import { allowedInputKeys, formatCommand } from "../utils/utils";
@@ -9,6 +10,7 @@ import History from "./Cmd/History";
 import Greeting from "./Cmd/Greeting";
 import { ActionTypes } from "../store/types";
 import { runCommand } from "../store/actions";
+import useDetectTouchScreenDevice from "../hooks/useDetectTouchScreenDevice";
 
 const Container = styled.div`
   padding-top: 10px;
@@ -19,16 +21,28 @@ const Container = styled.div`
   }
 `;
 
+const HiddenInput = styled.input`
+  width: 0;
+  height: 0;
+  padding: 0;
+  border: 0;
+`;
+
 function Cmd() {
   const [input, setInput] = useState("");
 
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLDivElement>(null);
+  const hiddenInputRef = useRef<HTMLInputElement>(null);
 
   const history = useStore((state) => state.history);
 
+  const isTouchScreenDevice = useDetectTouchScreenDevice();
+
   useEffect(() => {
-    containerRef.current?.focus();
+    if (!isTouchScreenDevice) {
+      containerRef.current?.focus();
+    }
   });
 
   useEffect(() => {
@@ -48,7 +62,7 @@ function Cmd() {
   );
 
   const handleKeyUp = useCallback(
-    (e: KeyboardEvent<HTMLImageElement>) => {
+    (e: KeyboardEvent<HTMLDivElement>) => {
       // TODO handle mobile devices, capslock/shift
 
       if (!allowedInputKeys.includes(e.key)) {
@@ -87,7 +101,7 @@ function Cmd() {
               history: [
                 ...state.history,
                 {
-                  key: crypto.randomUUID(),
+                  key: nanoid(),
                   command: formatCommand(command),
                 },
               ],
@@ -119,7 +133,12 @@ function Cmd() {
 
       <History commands={history} />
 
-      <Input inputRef={inputRef} input={input} />
+      <Input
+        inputRef={inputRef}
+        input={input}
+        onClick={() => hiddenInputRef.current?.focus()}
+      />
+      <HiddenInput type="text" ref={hiddenInputRef} />
     </Container>
   );
 }

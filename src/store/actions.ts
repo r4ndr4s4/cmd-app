@@ -1,3 +1,5 @@
+import { nanoid } from "nanoid";
+
 import getCommands from "../commands";
 import { formatCommand } from "../utils/utils";
 import { useStore } from ".";
@@ -13,7 +15,7 @@ export const callCommand = (command: string) => {
       history: [
         ...state.history,
         {
-          key: crypto.randomUUID(),
+          key: nanoid(),
           command: formatCommand(command),
         },
       ],
@@ -38,7 +40,7 @@ export const runCommand = (commandToRun: string) => {
         history: [
           ...state.history,
           {
-            key: crypto.randomUUID(),
+            key: nanoid(),
             command: command.result,
           },
         ],
@@ -52,7 +54,7 @@ export const runCommand = (commandToRun: string) => {
         history: [
           ...state.history,
           {
-            key: crypto.randomUUID(),
+            key: nanoid(),
             command: (e as Error).message,
           },
         ],

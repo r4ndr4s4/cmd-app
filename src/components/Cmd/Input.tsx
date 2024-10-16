@@ -21,12 +21,14 @@ const Caret = styled.span`
 function Input({
   inputRef,
   input,
+  onClick,
 }: {
   inputRef: RefObject<HTMLDivElement>;
   input: string;
+  onClick: () => void;
 }) {
   return (
-    <div ref={inputRef}>
+    <div ref={inputRef} onClick={onClick}>
       {formatCommand(input)}
 
       <Caret>&nbsp;</Caret>

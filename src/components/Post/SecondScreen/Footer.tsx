@@ -17,7 +17,7 @@ function Footer() {
     containerRef.current?.focus();
   });
 
-  const handleKeyUp = useCallback((e: KeyboardEvent<HTMLImageElement>) => {
+  const handleKeyUp = useCallback((e: KeyboardEvent<HTMLDivElement>) => {
     if (e.key === "Enter") {
       useStore.setState(
         () => ({
