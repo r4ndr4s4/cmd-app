@@ -17,11 +17,11 @@ const Table = styled.table`
   tbody {
     text-align: center;
 
-    tr:nth-child(1) > td {
+    tr:nth-of-type(1) > td {
       padding-top: 10px;
     }
 
-    td:nth-child(6) {
+    td:nth-of-type(6) {
       text-align: left;
     }
   }

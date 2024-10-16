@@ -21,15 +21,15 @@ const tableCommon = css`
     }
   }
 
-  th:nth-child(1) {
+  th:nth-of-type(1) {
     width: 180px;
   }
 
-  td:nth-child(2) {
+  td:nth-of-type(1) {
     width: 230px;
   }
 
-  th:nth-child(3) {
+  th:nth-of-type(2) {
     width: 190px;
   }
 `;
@@ -48,7 +48,7 @@ const BottomTable = styled.table`
   border-bottom: 3px double white;
   padding-top: 10px;
 
-  th:nth-child(1) {
+  th:nth-of-type(1) {
     width: 170px;
     padding-right: 10px;
 
