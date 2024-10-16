@@ -41,6 +41,7 @@ function Cmd() {
 
   useEffect(() => {
     if (!isTouchScreenDevice) {
+      // keeping container in focus on desktop after every event
       containerRef.current?.focus();
     }
   });
@@ -111,6 +112,11 @@ function Cmd() {
           );
           runCommand(command);
 
+          if (isTouchScreenDevice) {
+            // closing keyboard on mobile after enter
+            containerRef.current?.focus();
+          }
+
           break;
         }
         default: {
@@ -123,7 +129,7 @@ function Cmd() {
         }
       }
     },
-    [debouncedInputStateChange, input]
+    [debouncedInputStateChange, input, isTouchScreenDevice]
   );
 
   return (
@@ -136,7 +142,10 @@ function Cmd() {
       <Input
         inputRef={inputRef}
         input={input}
-        onClick={() => hiddenInputRef.current?.focus()}
+        onClick={() => {
+          // opening keyboard on mobile when clicking visible input(-like component)
+          hiddenInputRef.current?.focus();
+        }}
       />
       <HiddenInput type="text" ref={hiddenInputRef} />
     </Container>
