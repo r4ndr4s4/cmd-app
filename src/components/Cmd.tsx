@@ -63,7 +63,7 @@ function Cmd() {
 
   const handleKeyUp = useCallback(
     (e: KeyboardEvent<HTMLDivElement>) => {
-      // TODO handle mobile devices, capslock/shift
+      // TODO handle capslock/shift
 
       if (!allowedInputKeys.includes(e.key)) {
         return;
