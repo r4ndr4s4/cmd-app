@@ -8,6 +8,7 @@ import energyStarLogo from "../../assets/energy_star_logo.webp";
 import { useStore } from "../../store";
 import useKeyPressOnContainer from "../../hooks/useKeyPressOnContainer";
 import { PostState } from "../../store/types";
+import { HiddenInput } from "../../utils/styles";
 
 const Container = styled.div`
   height: calc(100vh - 20px);
@@ -30,8 +31,8 @@ const HardwareContainer = styled.div`
 function FirstScreen() {
   const postState = useStore((state) => state.postState);
 
-  const { containerRef, handleKeyUp } = useKeyPressOnContainer(
-    ["Delete", "Escape"],
+  const { containerRef, hiddenInputRef, handleKeyUp } = useKeyPressOnContainer(
+    ["Delete", "Escape", "Enter", " "],
     () =>
       useStore.setState(
         () => ({
@@ -47,7 +48,12 @@ function FirstScreen() {
   );
 
   return (
-    <Container onKeyUp={handleKeyUp} tabIndex={0} ref={containerRef}>
+    <Container
+      onKeyUp={handleKeyUp}
+      tabIndex={0}
+      ref={containerRef}
+      onClick={() => hiddenInputRef.current?.focus()}
+    >
       <HardwareContainer>
         <div>
           <Header />
@@ -62,7 +68,11 @@ function FirstScreen() {
         <img src={energyStarLogo} height="125" />
       </HardwareContainer>
 
-      <Footer />
+      <div>
+        <HiddenInput type="text" ref={hiddenInputRef} />
+
+        <Footer />
+      </div>
     </Container>
   );
 }

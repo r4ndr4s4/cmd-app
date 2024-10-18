@@ -1,10 +1,17 @@
 import { useEffect, useCallback, KeyboardEvent, useRef } from "react";
 
+import useDetectTouchScreenDevice from "./useDetectTouchScreenDevice";
+
 function useKeyPressOnContainer(keys: string[], callback: () => void) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const hiddenInputRef = useRef<HTMLInputElement>(null);
+
+  const isTouchScreenDevice = useDetectTouchScreenDevice();
 
   useEffect(() => {
-    containerRef.current?.focus();
+    if (!isTouchScreenDevice) {
+      containerRef.current?.focus();
+    }
   });
 
   const handleKeyUp = useCallback(
@@ -16,7 +23,7 @@ function useKeyPressOnContainer(keys: string[], callback: () => void) {
     [callback, keys]
   );
 
-  return { containerRef, handleKeyUp };
+  return { containerRef, hiddenInputRef, handleKeyUp };
 }
 
 export default useKeyPressOnContainer;
