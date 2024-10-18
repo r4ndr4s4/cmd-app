@@ -29,13 +29,6 @@ const getCommands = () => {
             <tbody>
               <tr>
                 <th scope="row">
-                  <Command>commands</Command>
-                </th>
-                <td>Show this list of possible commands</td>
-              </tr>
-
-              <tr>
-                <th scope="row">
                   <Command>intro</Command>
                 </th>
                 <td>Show a short introduction about me</td>
@@ -90,6 +83,13 @@ const getCommands = () => {
                 <td>
                   Show the link to the source code of this <del>site</del> app
                 </td>
+              </tr>
+
+              <tr>
+                <th scope="row">
+                  <Command>commands</Command>
+                </th>
+                <td>Show this list of possible commands</td>
               </tr>
             </tbody>
           </Table>
