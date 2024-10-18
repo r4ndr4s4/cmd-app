@@ -5,12 +5,19 @@ import HardwareInfo from "./FirstScreen/HardwareInfo";
 import DeviceDetection from "./FirstScreen/DeviceDetection";
 import Footer from "./FirstScreen/Footer";
 import energyStarLogo from "../../assets/energy_star_logo.webp";
+import { useStore } from "../../store";
+import useKeyPressOnContainer from "../../hooks/useKeyPressOnContainer";
+import { PostState } from "../../store/types";
 
 const Container = styled.div`
   height: calc(100vh - 20px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  :focus-visible {
+    outline: none;
+  }
 `;
 
 const HardwareContainer = styled.div`
@@ -21,8 +28,26 @@ const HardwareContainer = styled.div`
 `;
 
 function FirstScreen() {
+  const postState = useStore((state) => state.postState);
+
+  const { containerRef, handleKeyUp } = useKeyPressOnContainer(
+    ["Delete", "Escape"],
+    () =>
+      useStore.setState(
+        () => ({
+          postState: PostState.AppInit,
+        }),
+        undefined,
+        {
+          type: "postState",
+          from: postState,
+          to: PostState.AppInit,
+        }
+      )
+  );
+
   return (
-    <Container>
+    <Container onKeyUp={handleKeyUp} tabIndex={0} ref={containerRef}>
       <HardwareContainer>
         <div>
           <Header />
