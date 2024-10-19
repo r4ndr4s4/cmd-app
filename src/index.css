@@ -1,6 +1,11 @@
 body {
-  background-color: black;
-  color: white;
+  --main-bg-color: black;
+  --main-text-color: #a7a7a7;
+  --lighter-text-color: #b4b4b4; /* TODO remove if unused */
+  --light-text-color: #fafafa;
+
+  background-color: var(--main-bg-color);
+  color: var(--main-text-color);
   margin: 0;
   font-family: "Courier New", Courier, monospace;
 }

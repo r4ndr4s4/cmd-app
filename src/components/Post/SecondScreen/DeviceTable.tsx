@@ -1,5 +1,7 @@
 import styled from "@emotion/styled";
 
+import { MAIN_TEXT_COLOR } from "../../../utils/styles";
+
 const Table = styled.table`
   width: 100%;
   border-spacing: 0;
@@ -10,7 +12,7 @@ const Table = styled.table`
     th {
       font-weight: normal;
       padding-bottom: 10px;
-      border-bottom: 1px solid white;
+      border-bottom: 1px solid ${MAIN_TEXT_COLOR};
     }
   }
 

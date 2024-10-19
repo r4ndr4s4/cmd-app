@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 
-import { InlinePre } from "../../../utils/styles";
+import { InlinePre, MAIN_TEXT_COLOR } from "../../../utils/styles";
 
 const tableCommon = css`
-  border-left: 4px double white;
-  border-right: 4px double white;
+  border-left: 4px double ${MAIN_TEXT_COLOR};
+  border-right: 4px double ${MAIN_TEXT_COLOR};
   width: 100%;
   border-spacing: 0;
   padding: 10px;
@@ -37,15 +37,15 @@ const tableCommon = css`
 const TopTable = styled.table`
   ${tableCommon}
 
-  border-top: 3px double white;
-  border-bottom: 1px solid white;
+  border-top: 3px double ${MAIN_TEXT_COLOR};
+  border-bottom: 1px solid ${MAIN_TEXT_COLOR};
   padding-bottom: 10px;
 `;
 
 const BottomTable = styled.table`
   ${tableCommon}
 
-  border-bottom: 3px double white;
+  border-bottom: 3px double ${MAIN_TEXT_COLOR};
   padding-top: 10px;
 
   th:nth-of-type(1) {

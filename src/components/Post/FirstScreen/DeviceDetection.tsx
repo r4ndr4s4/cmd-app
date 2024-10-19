@@ -4,12 +4,20 @@ import { useStore } from "../../../store";
 import Delay from "../../common/DelayedRender";
 import useDelayedPostStateChange from "../../../hooks/useDelayedPostStateChange";
 import { PostState } from "../../../store/types";
+import { ColoredSpan, LIGHT_TEXT_COLOR } from "../../../utils/styles";
 
-const NO_DEVICE = "[Press F4 to skip]";
 const PRIMARY_MASTER_DEVICE = "PCemHD";
 const PRIMARY_SLAVE_DEVICE = "PCemCD";
 const SECONDARY_MASTER_DEVICE = "None";
 const SECONDARY_SLAVE_DEVICE = "None";
+
+function NoDevice() {
+  return (
+    <span>
+      [Press <ColoredSpan color={LIGHT_TEXT_COLOR}>F4</ColoredSpan> to skip]
+    </span>
+  );
+}
 
 function DeviceDetection() {
   const [deviceDetectionState, setDeviceDetectionState] = useState(0);
@@ -64,19 +72,19 @@ function DeviceDetection() {
         <Delay ms={1000}>
           <p>
             Detecting IDE Primary Master...{" "}
-            {deviceDetectionState >= 2 ? PRIMARY_MASTER_DEVICE : NO_DEVICE}
+            {deviceDetectionState >= 2 ? PRIMARY_MASTER_DEVICE : <NoDevice />}
           </p>
           <p>
             Detecting IDE Primary Slave...{" "}
-            {deviceDetectionState >= 3 ? PRIMARY_SLAVE_DEVICE : NO_DEVICE}
+            {deviceDetectionState >= 3 ? PRIMARY_SLAVE_DEVICE : <NoDevice />}
           </p>
           <p>
             Detecting IDE Secondary Master...{" "}
-            {deviceDetectionState >= 4 ? SECONDARY_MASTER_DEVICE : NO_DEVICE}
+            {deviceDetectionState >= 4 ? SECONDARY_MASTER_DEVICE : <NoDevice />}
           </p>
           <p>
             Detecting IDE Secondary Slave...{" "}
-            {deviceDetectionState >= 5 ? SECONDARY_SLAVE_DEVICE : NO_DEVICE}
+            {deviceDetectionState >= 5 ? SECONDARY_SLAVE_DEVICE : <NoDevice />}
           </p>
         </Delay>
       </Delay>

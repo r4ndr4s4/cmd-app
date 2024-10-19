@@ -1,3 +1,5 @@
+import { ColoredSpan, LIGHT_TEXT_COLOR } from "../../../utils/styles";
+
 function Footer() {
   return (
     <>
@@ -5,7 +7,10 @@ function Footer() {
       <p>Starting MS-DOS...</p>
       <br />
 
-      <p>Press ENTER to continue</p>
+      <p>
+        Press <ColoredSpan color={LIGHT_TEXT_COLOR}>ENTER</ColoredSpan> to
+        continue
+      </p>
     </>
   );
 }

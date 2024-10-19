@@ -1,10 +1,11 @@
 import styled from "@emotion/styled";
 
 import { callCommand } from "../../store/actions";
+import { LIGHT_TEXT_COLOR } from "../../utils/styles";
 
 const Container = styled.span`
-  font-weight: bold;
   cursor: pointer;
+  color: ${LIGHT_TEXT_COLOR};
 `;
 
 function Command({ children }: { children: string }) {

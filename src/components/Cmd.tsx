@@ -11,6 +11,7 @@ import Greeting from "./Cmd/Greeting";
 import { ActionTypes } from "../store/types";
 import { runCommand } from "../store/actions";
 import useDetectTouchScreenDevice from "../hooks/useDetectTouchScreenDevice";
+import { HiddenInput } from "../utils/styles";
 
 const Container = styled.div`
   padding-top: 10px;
@@ -19,13 +20,6 @@ const Container = styled.div`
   :focus-visible {
     outline: none;
   }
-`;
-
-const HiddenInput = styled.input`
-  width: 0;
-  height: 0;
-  padding: 0;
-  border: 0;
 `;
 
 function Cmd() {

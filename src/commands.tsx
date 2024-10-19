@@ -8,6 +8,7 @@ const Table = styled.table`
 
   th {
     text-align: left;
+    font-weight: normal;
   }
 
   td {

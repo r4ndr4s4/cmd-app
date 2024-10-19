@@ -2,10 +2,11 @@ import styled from "@emotion/styled";
 import { RefObject } from "react";
 
 import { formatCommand } from "../../utils/utils";
+import { MAIN_TEXT_COLOR } from "../../utils/styles";
 
 const Caret = styled.span`
   animation: blink 1s step-end infinite;
-  border-bottom: 2px solid white;
+  border-bottom: 2px solid ${MAIN_TEXT_COLOR};
 
   @keyframes blink {
     from,
@@ -13,7 +14,7 @@ const Caret = styled.span`
       border-color: transparent;
     }
     50% {
-      border-color: #fff;
+      border-color: ${MAIN_TEXT_COLOR};
     }
   }
 `;
