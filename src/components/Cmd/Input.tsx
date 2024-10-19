@@ -1,8 +1,16 @@
 import styled from "@emotion/styled";
 import { RefObject } from "react";
 
-import { formatCommand } from "../../utils/utils";
-import { MAIN_TEXT_COLOR } from "../../utils/styles";
+import { LIGHT_TEXT_COLOR, MAIN_TEXT_COLOR } from "../../utils/styles";
+
+const Container = styled.div`
+  color: ${LIGHT_TEXT_COLOR};
+
+  ::before {
+    content: "> ";
+    color: ${MAIN_TEXT_COLOR};
+  }
+`;
 
 const Caret = styled.span`
   animation: blink 1s step-end infinite;
@@ -29,11 +37,11 @@ function Input({
   onClick: () => void;
 }) {
   return (
-    <div ref={inputRef} onClick={onClick}>
-      {formatCommand(input)}
+    <Container ref={inputRef} onClick={onClick}>
+      {input}
 
       <Caret>&nbsp;</Caret>
-    </div>
+    </Container>
   );
 }
 
