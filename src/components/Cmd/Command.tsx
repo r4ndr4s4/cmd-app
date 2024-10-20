@@ -6,6 +6,10 @@ import { LIGHT_TEXT_COLOR } from "../../utils/styles";
 const Container = styled.span`
   cursor: pointer;
   color: ${LIGHT_TEXT_COLOR};
+
+  :hover {
+    text-decoration: underline;
+  }
 `;
 
 function Command({ children }: { children: string }) {
