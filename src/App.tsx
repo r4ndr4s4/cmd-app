@@ -15,18 +15,27 @@ const Container = styled.div`
 function App() {
   const postState = useStore((state) => state.postState);
 
-  return <Init />;
-
   return (
-    <Container>
-      <Delay until={postState >= PostState.AppInit}>
-        <Cmd />
+    <>
+      <Delay until={postState === PostState.InitScreen}>
+        <Init />
       </Delay>
 
-      <Delay until={postState <= PostState.PostSecondScreenInit}>
-        <Post />
-      </Delay>
-    </Container>
+      <Container>
+        <Delay
+          until={
+            postState >= PostState.PostFirstScreenInit &&
+            postState <= PostState.PostSecondScreenInit
+          }
+        >
+          <Post />
+        </Delay>
+
+        <Delay until={postState >= PostState.AppInit}>
+          <Cmd />
+        </Delay>
+      </Container>
+    </>
   );
 }
 

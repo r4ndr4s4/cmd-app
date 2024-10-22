@@ -24,15 +24,19 @@ export enum ActionTypes {
 
 // TODO use string members to show up in redux devtools correctly
 export enum PostState {
-  // first screen
-  PostFirstScreenInit = 0,
+  // init screen (Init component)
+  InitScreen = 0,
+
+  // first screen (Post component)
+  PostFirstScreenInit,
   MemoryTestShow,
   MemoryTestStart,
   MemoryTestDone,
   DeviceDetectionShow,
 
-  // second screen
+  // second screen (Post component)
   PostSecondScreenInit,
 
+  // app (Cmd component)
   AppInit,
 }

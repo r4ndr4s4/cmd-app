@@ -3,6 +3,8 @@ import ImageMapper from "react-img-mapper";
 import { useEffect, useState } from "react";
 
 import siemensNixdorfSetup from "../assets/siemens_nixdorf_setup.webp";
+import { useStore } from "../store";
+import { PostState } from "../store/types";
 
 const IMG_WIDTH = 1577;
 const TOOLTIP_POS_X = 820;
@@ -98,7 +100,19 @@ function Init() {
         }}
         parentWidth={Math.min(windowWidth, IMG_WIDTH)}
         onLoad={() => setImageMapLoaded(true)}
-        onClick={() => console.log("clicked")}
+        onClick={() => {
+          useStore.setState(
+            () => ({
+              postState: PostState.PostFirstScreenInit,
+            }),
+            undefined,
+            {
+              type: "postState",
+              from: PostState.InitScreen,
+              to: PostState.PostFirstScreenInit,
+            }
+          );
+        }}
         active={false}
         responsive
       />
