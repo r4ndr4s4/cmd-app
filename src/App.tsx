@@ -5,6 +5,7 @@ import Post from "./components/Post";
 import Cmd from "./components/Cmd";
 import { PostState } from "./store/types";
 import Delay from "./components/common/DelayedRender";
+import Init from "./components/Init";
 
 const Container = styled.div`
   width: 818px;
@@ -13,6 +14,8 @@ const Container = styled.div`
 
 function App() {
   const postState = useStore((state) => state.postState);
+
+  return <Init />;
 
   return (
     <Container>
