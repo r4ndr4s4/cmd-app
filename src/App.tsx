@@ -5,7 +5,7 @@ import Post from "./components/Post";
 import Cmd from "./components/Cmd";
 import { PostState } from "./store/types";
 import Delay from "./components/common/DelayedRender";
-import Init from "./components/Init";
+import Start from "./components/Start";
 
 const Container = styled.div`
   width: 818px;
@@ -17,8 +17,8 @@ function App() {
 
   return (
     <>
-      <Delay until={postState === PostState.InitScreen}>
-        <Init />
+      <Delay until={postState <= PostState.StartScreenDone}>
+        <Start />
       </Delay>
 
       <Container>

@@ -15,16 +15,6 @@ const Container = styled.div`
 const Caret = styled.span`
   animation: blink 1s step-end infinite;
   border-bottom: 2px solid ${MAIN_TEXT_COLOR};
-
-  @keyframes blink {
-    from,
-    to {
-      border-color: transparent;
-    }
-    50% {
-      border-color: ${MAIN_TEXT_COLOR};
-    }
-  }
 `;
 
 function Input({

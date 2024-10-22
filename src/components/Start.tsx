@@ -2,10 +2,12 @@ import styled from "@emotion/styled";
 import ImageMapper from "react-img-mapper";
 import { useEffect, useState } from "react";
 
-import siemensNixdorfSetup from "../assets/siemens_nixdorf_setup.webp";
+import siemensNixdorfPc from "../assets/siemens_nixdorf_pc.webp";
 import { useStore } from "../store";
 import { PostState } from "../store/types";
+import useDelayedPostStateChange from "../hooks/useDelayedPostStateChange";
 
+// TODO move out
 const IMG_WIDTH = 1577;
 const TOOLTIP_POS_X = 820;
 const TOOLTIP_POS_Y = 445;
@@ -17,60 +19,41 @@ const getLeft = (windowWidth: number) =>
 const getTop = (windowWidth: number) =>
   TOOLTIP_POS_Y * (Math.min(windowWidth, IMG_WIDTH) / IMG_WIDTH);
 
-const Container = styled.div`
+const Container = styled.div<{ startFadeOut: boolean }>`
   display: flex;
   justify-content: center;
   align-items: flex-start;
   height: 100vh;
   font-family: monospace;
+  animation: ${(props) =>
+    props.startFadeOut ? "fade-out 0.25s ease-out both" : ""}; // TODO
+
+  area {
+    cursor: pointer;
+  }
 `;
 
 // TODO separate to component
 const Tooltip = styled.div<{ windowWidth: number }>`
-  // position: relative;
-  // display: inline-block;
   position: absolute;
   top: ${(props) => getTop(props.windowWidth)}px; // TODO fix growing distance
   left: ${(props) => getLeft(props.windowWidth)}px; // TODO fix growing distance
 
   span {
     visibility: visible;
-    width: 120px;
-    background-color: beige;
-    color: black;
+    width: 105px;
+    background-color: beige; // TODO
+    color: black; // TODO
     text-align: center;
     border-radius: 6px;
     padding: 5px 0;
     font-family: monospace;
     font-size: 16px;
-
     position: absolute;
     z-index: 1;
     top: -5px;
     left: 105%;
-
-    animation: vibrate 0.3s linear infinite both;
-
-    @keyframes vibrate {
-      0% {
-        transform: translate(0);
-      }
-      20% {
-        transform: translate(-2px, 2px);
-      }
-      40% {
-        transform: translate(-2px, -2px);
-      }
-      60% {
-        transform: translate(2px, 2px);
-      }
-      80% {
-        transform: translate(2px, -2px);
-      }
-      100% {
-        transform: translate(0);
-      }
-    }
+    animation: vibrate 0.3s linear infinite 3s both;
   }
 
   span::after {
@@ -85,9 +68,17 @@ const Tooltip = styled.div<{ windowWidth: number }>`
   }
 `;
 
-function Init() {
+function Start() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [imageMapLoaded, setImageMapLoaded] = useState(false);
+
+  const postState = useStore((state) => state.postState);
+
+  useDelayedPostStateChange({
+    from: PostState.StartScreenDone,
+    to: PostState.PostFirstScreenInit,
+    ms: 1000,
+  });
 
   // TODO separate to hook
   useEffect(() => {
@@ -108,15 +99,20 @@ function Init() {
   }, []);
 
   if (windowWidth < MININUM_WINDOW_WIDTH) {
-    return <Container>Your screen resolution is too low!</Container>; // TODO
+    return (
+      <Container startFadeOut={false}>
+        Your screen resolution is too low!
+      </Container>
+    ); // TODO
   }
 
+  // TODO fade in
   return (
-    <Container>
+    <Container startFadeOut={postState === PostState.StartScreenDone}>
       <ImageMapper
-        src={siemensNixdorfSetup}
+        src={siemensNixdorfPc}
         map={{
-          name: "onButton",
+          name: "powerButton",
           areas: [
             {
               shape: "rect",
@@ -127,17 +123,20 @@ function Init() {
         parentWidth={Math.min(windowWidth, IMG_WIDTH)}
         onLoad={() => setImageMapLoaded(true)}
         onClick={() => {
-          useStore.setState(
-            () => ({
-              postState: PostState.PostFirstScreenInit,
-            }),
-            undefined,
-            {
-              type: "postState",
-              from: PostState.InitScreen,
-              to: PostState.PostFirstScreenInit,
-            }
-          );
+          // TODO play sound, CRT effect
+          setTimeout(() => {
+            useStore.setState(
+              () => ({
+                postState: PostState.StartScreenDone,
+              }),
+              undefined,
+              {
+                type: "postState",
+                from: PostState.StartScreenInit,
+                to: PostState.StartScreenDone,
+              }
+            );
+          }, 500);
         }}
         active={false}
         responsive
@@ -158,4 +157,4 @@ function Init() {
   );
 }
 
-export default Init;
+export default Start;
