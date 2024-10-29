@@ -14,4 +14,5 @@ export const Notification = styled.div`
   ${divCommon}
 
   padding: 5px 15px;
+  max-width: 420px;
 `;
