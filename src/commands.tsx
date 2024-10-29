@@ -79,19 +79,10 @@ const getCommands = () => {
 
               <tr>
                 <th scope="row">
-                  <Command>source</Command>
+                  <Command>sources</Command>
                 </th>
                 <td>
-                  Show the link to the source code of this <del>site</del> app
-                </td>
-              </tr>
-
-              <tr>
-                <th scope="row">
-                  <Command>credits</Command>
-                </th>
-                <td>
-                  Show the credits of this <del>site</del> app
+                  Show the sources of this <del>site</del> app
                 </td>
               </tr>
 
@@ -172,22 +163,19 @@ const getCommands = () => {
       ),
     },
     {
-      command: "source",
-      result: (
-        <p>
-          You can find the source code at{" "}
-          <a href="https://github.com/r4ndr4s4/cmd-app" target="_blank">
-            https://github.com/r4ndr4s4/cmd-app
-          </a>
-        </p>
-      ),
-    },
-    {
-      command: "credits",
+      command: "sources",
       result: (
         <>
           <p>
-            Siemens Nixdorf PC image (jerwyro0 from eBay):{" "}
+            Source code:{" "}
+            <a href="https://github.com/r4ndr4s4/cmd-app" target="_blank">
+              https://github.com/r4ndr4s4/cmd-app
+            </a>
+          </p>
+          <br />
+
+          <p>
+            Source of the Siemens Nixdorf PC image (jerwyro0 from eBay):{" "}
             <a href="https://www.ebay.de/itm/166853976280" target="_blank">
               https://www.ebay.de/itm/166853976280
             </a>
@@ -206,7 +194,7 @@ const getCommands = () => {
           <br />
 
           <p>
-            IBM VGA 8x14 Web437 font (VileR from INT10h):{" "}
+            Source of the IBM VGA 8x14 Web437 font (VileR from INT10h):{" "}
             <a
               href="https://int10h.org/oldschool-pc-fonts/fontlist/font?ibm_vga_8x14"
               target="_blank"
@@ -217,7 +205,8 @@ const getCommands = () => {
           <br />
 
           <p>
-            Internet Explorer missing image favicon (Stoimen from his blog):{" "}
+            Source of the Internet Explorer missing image favicon (Stoimen from
+            his blog):{" "}
             <a
               href="http://stoimen.com/2010/07/01/replace-the-broken-images-with-a-default-image-with-javascript/"
               target="_blank"
