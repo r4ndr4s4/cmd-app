@@ -88,6 +88,15 @@ const getCommands = () => {
 
               <tr>
                 <th scope="row">
+                  <Command>credits</Command>
+                </th>
+                <td>
+                  Show the credits of this <del>site</del> app
+                </td>
+              </tr>
+
+              <tr>
+                <th scope="row">
                   <Command>commands</Command>
                 </th>
                 <td>Show this list of possible commands</td>
@@ -171,6 +180,52 @@ const getCommands = () => {
             https://github.com/r4ndr4s4/cmd-app
           </a>
         </p>
+      ),
+    },
+    {
+      command: "credits",
+      result: (
+        <>
+          <p>
+            Siemens Nixdorf PC image (jerwyro0 from eBay):{" "}
+            <a href="https://www.ebay.de/itm/166853976280" target="_blank">
+              https://www.ebay.de/itm/166853976280
+            </a>
+          </p>
+          <br />
+
+          <p>
+            Source of the POST part (Billy O'Reilly from YouTube):{" "}
+            <a
+              href="https://www.youtube.com/watch?v=CZ9UiPqL-V8"
+              target="_blank"
+            >
+              https://www.youtube.com/watch?v=CZ9UiPqL-V8
+            </a>
+          </p>
+          <br />
+
+          <p>
+            IBM VGA 8x14 Web437 font (VileR from INT10h):{" "}
+            <a
+              href="https://int10h.org/oldschool-pc-fonts/fontlist/font?ibm_vga_8x14"
+              target="_blank"
+            >
+              https://int10h.org/oldschool-pc-fonts/fontlist/font?ibm_vga_8x14
+            </a>
+          </p>
+          <br />
+
+          <p>
+            Internet Explorer missing image favicon (Stoimen from his blog):{" "}
+            <a
+              href="http://stoimen.com/2010/07/01/replace-the-broken-images-with-a-default-image-with-javascript/"
+              target="_blank"
+            >
+              http://stoimen.com/2010/07/01/replace-the-broken-images-with-a-default-image-with-javascript/
+            </a>
+          </p>
+        </>
       ),
     },
     {
