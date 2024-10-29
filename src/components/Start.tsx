@@ -133,7 +133,9 @@ function Start() {
       )}
 
       <Notification>
-        Or press {isTouchScreenDevice ? "ENTER" : "ESC"} to skip to the app
+        {isTouchScreenDevice
+          ? "Or touch the screen then press ENTER to skip to the app"
+          : "Or press ESC to skip to the app"}
       </Notification>
     </Container>
   );

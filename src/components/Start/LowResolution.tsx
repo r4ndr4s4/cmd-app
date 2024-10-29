@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 
 import { HiddenInput } from "../../utils/styles";
 import { Notification } from "./styles";
+import useDetectTouchScreenDevice from "../../hooks/useDetectTouchScreenDevice";
 
 const Information = styled.p`
   padding: 5px;
@@ -14,6 +15,8 @@ function LowResolution({
 }: {
   inputRef: RefObject<HTMLInputElement>;
 }) {
+  const isTouchScreenDevice = useDetectTouchScreenDevice();
+
   return (
     <>
       <div>
@@ -25,7 +28,8 @@ function LowResolution({
       </div>
 
       <Notification>
-        Or press ENTER to skip to the mobile friendly part
+        Or {isTouchScreenDevice ? "touch the screen then" : ""} press ENTER to
+        skip to the mobile friendly part
       </Notification>
     </>
   );
