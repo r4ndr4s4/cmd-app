@@ -1,28 +1,27 @@
 import styled from "@emotion/styled";
 import ImageMapper from "react-img-mapper";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import siemensNixdorfPc from "../assets/siemens_nixdorf_pc.webp";
 import { useStore } from "../store";
 import { PostState } from "../store/types";
 import useDelayedPostStateChange from "../hooks/useDelayedPostStateChange";
+import useKeyPressOnContainer from "../hooks/useKeyPressOnContainer";
+import { HiddenInput } from "../utils/styles";
+import useDetectTouchScreenDevice from "../hooks/useDetectTouchScreenDevice";
+import LowResolution from "./Start/LowResolution";
+import Tooltip from "./Start/Tooltip";
+import { Notification } from "./Start/styles";
+import useGetWindowWidth from "../hooks/useGetWindowWidth";
 
-// TODO move out
-const IMG_WIDTH = 1577;
-const TOOLTIP_POS_X = 820;
-const TOOLTIP_POS_Y = 445;
+export const IMG_WIDTH = 1577;
 const MININUM_WINDOW_WIDTH = 1366;
-
-const getLeft = (windowWidth: number) =>
-  TOOLTIP_POS_X * (windowWidth / IMG_WIDTH);
-
-const getTop = (windowWidth: number) =>
-  TOOLTIP_POS_Y * (Math.min(windowWidth, IMG_WIDTH) / IMG_WIDTH);
 
 const Container = styled.div<{ startFadeOut: boolean }>`
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   height: 100vh;
   font-family: monospace;
   animation: ${(props) =>
@@ -33,46 +32,17 @@ const Container = styled.div<{ startFadeOut: boolean }>`
   }
 `;
 
-// TODO separate to component
-const Tooltip = styled.div<{ windowWidth: number }>`
-  position: absolute;
-  top: ${(props) => getTop(props.windowWidth)}px; // TODO fix growing distance
-  left: ${(props) => getLeft(props.windowWidth)}px; // TODO fix growing distance
-
-  span {
-    visibility: visible;
-    width: 105px;
-    background-color: beige; // TODO
-    color: black; // TODO
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-    font-family: monospace;
-    font-size: 16px;
-    position: absolute;
-    z-index: 1;
-    top: -5px;
-    left: 105%;
-    animation: vibrate 0.3s linear infinite 3s both;
-  }
-
-  span::after {
-    content: " ";
-    position: absolute;
-    top: 50%;
-    right: 100%;
-    margin-top: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: transparent beige transparent transparent;
-  }
-`;
-
 function Start() {
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [imageMapLoaded, setImageMapLoaded] = useState(false);
 
   const postState = useStore((state) => state.postState);
+
+  const isTouchScreenDevice = useDetectTouchScreenDevice();
+  const windowWidth = useGetWindowWidth(() => {
+    if (window.innerWidth < MININUM_WINDOW_WIDTH) {
+      setImageMapLoaded(false);
+    }
+  });
 
   useDelayedPostStateChange({
     from: PostState.StartScreenDone,
@@ -80,79 +50,91 @@ function Start() {
     ms: 1000,
   });
 
-  // TODO separate to hook
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-
-      // callback
-      if (window.innerWidth < MININUM_WINDOW_WIDTH) {
-        setImageMapLoaded(false);
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+  const { containerRef, hiddenInputRef, handleKeyUp } = useKeyPressOnContainer(
+    ["Delete", "Escape", "Enter", " "],
+    () =>
+      useStore.setState(
+        () => ({
+          postState: PostState.AppInit,
+        }),
+        undefined,
+        {
+          type: "postState",
+          from: PostState.StartScreenInit,
+          to: PostState.AppInit,
+        }
+      )
+  );
 
   if (windowWidth < MININUM_WINDOW_WIDTH) {
     return (
-      <Container startFadeOut={false}>
-        Your screen resolution is too low!
+      <Container
+        startFadeOut={false}
+        onKeyUp={handleKeyUp}
+        tabIndex={0}
+        ref={containerRef}
+        onClick={() => hiddenInputRef.current?.focus()}
+      >
+        <LowResolution inputRef={hiddenInputRef} />
       </Container>
-    ); // TODO
+    );
   }
 
   // TODO fade in
   return (
-    <Container startFadeOut={postState === PostState.StartScreenDone}>
-      <ImageMapper
-        src={siemensNixdorfPc}
-        map={{
-          name: "powerButton",
-          areas: [
-            {
-              shape: "rect",
-              coords: [729, 446, 806, 487],
-            },
-          ],
-        }}
-        parentWidth={Math.min(windowWidth, IMG_WIDTH)}
-        onLoad={() => setImageMapLoaded(true)}
-        onClick={() => {
-          // TODO play sound, CRT effect
-          setTimeout(() => {
-            useStore.setState(
-              () => ({
-                postState: PostState.StartScreenDone,
-              }),
-              undefined,
+    <Container
+      startFadeOut={postState === PostState.StartScreenDone}
+      onKeyUp={handleKeyUp}
+      tabIndex={0}
+      ref={containerRef}
+      onClick={() => hiddenInputRef.current?.focus()}
+    >
+      <div>
+        <ImageMapper
+          src={siemensNixdorfPc}
+          map={{
+            name: "powerButton",
+            areas: [
               {
-                type: "postState",
-                from: PostState.StartScreenInit,
-                to: PostState.StartScreenDone,
-              }
-            );
-          }, 500);
-        }}
-        active={false}
-        responsive
-      />
+                shape: "rect",
+                coords: [729, 446, 806, 487],
+              },
+            ],
+          }}
+          parentWidth={Math.min(windowWidth, IMG_WIDTH)}
+          onLoad={() => setImageMapLoaded(true)}
+          onClick={() => {
+            // TODO play sound, CRT effect
+            setTimeout(() => {
+              useStore.setState(
+                () => ({
+                  postState: PostState.StartScreenDone,
+                }),
+                undefined,
+                {
+                  type: "postState",
+                  from: PostState.StartScreenInit,
+                  to: PostState.StartScreenDone,
+                }
+              );
+            }, 500);
+          }}
+          active={false}
+          responsive
+        />
+
+        <HiddenInput type="text" ref={hiddenInputRef} />
+      </div>
 
       {imageMapLoaded ? (
-        <Tooltip windowWidth={windowWidth}>
-          <span>
-            Click to
-            <br />
-            turn on
-          </span>
-        </Tooltip>
+        <Tooltip windowWidth={windowWidth} />
       ) : (
         "Loading..." // TODO
       )}
+
+      <Notification>
+        Or press {isTouchScreenDevice ? "ENTER" : "ESC"} to skip to the app
+      </Notification>
     </Container>
   );
 }
