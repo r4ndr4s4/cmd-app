@@ -9,7 +9,7 @@ export interface State {
   input: string; // TODO remove if unused
   history: HistoryCommand[];
 
-  postState: PostState;
+  appState: AppState;
 }
 
 export enum ActionTypes {
@@ -23,8 +23,7 @@ export enum ActionTypes {
 }
 
 // TODO use string members to show up in redux devtools correctly
-// TODO rename to AppState
-export enum PostState {
+export enum AppState {
   // start screen (Start component)
   StartScreenInit = 0,
   StartScreenDone,

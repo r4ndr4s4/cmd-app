@@ -7,7 +7,7 @@ import Footer from "./FirstScreen/Footer";
 import energyStarLogo from "../../assets/energy_star_logo.webp";
 import { useStore } from "../../store";
 import useKeyPressOnContainer from "../../hooks/useKeyPressOnContainer";
-import { PostState } from "../../store/types";
+import { AppState } from "../../store/types";
 import { HiddenInput } from "../../utils/styles";
 
 const Container = styled.div`
@@ -29,20 +29,20 @@ const HardwareContainer = styled.div`
 `;
 
 function FirstScreen() {
-  const postState = useStore((state) => state.postState);
+  const appState = useStore((state) => state.appState);
 
   const { containerRef, hiddenInputRef, handleKeyUp } = useKeyPressOnContainer(
     ["Delete", "Escape", "Enter", " "],
     () =>
       useStore.setState(
         () => ({
-          postState: PostState.AppInit,
+          appState: AppState.AppInit,
         }),
         undefined,
         {
-          type: "postState",
-          from: postState,
-          to: PostState.AppInit,
+          type: "appState",
+          from: appState,
+          to: AppState.AppInit,
         }
       )
   );

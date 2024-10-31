@@ -6,7 +6,7 @@ import HardwareTable from "./SecondScreen/HardwareTable";
 import Header from "./SecondScreen/Header";
 import useKeyPressOnContainer from "../../hooks/useKeyPressOnContainer";
 import { useStore } from "../../store";
-import { PostState } from "../../store/types";
+import { AppState } from "../../store/types";
 import { HiddenInput } from "../../utils/styles";
 
 const Container = styled.div`
@@ -23,13 +23,13 @@ function SecondScreen() {
     () =>
       useStore.setState(
         () => ({
-          postState: PostState.AppInit,
+          appState: AppState.AppInit,
         }),
         undefined,
         {
-          type: "postState",
-          from: PostState.PostSecondScreenInit,
-          to: PostState.AppInit,
+          type: "appState",
+          from: AppState.PostSecondScreenInit,
+          to: AppState.AppInit,
         }
       )
   );

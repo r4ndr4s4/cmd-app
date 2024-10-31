@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 
 import FirstScreen from "./Post/FirstScreen";
 import SecondScreen from "./Post/SecondScreen";
-import { PostState } from "../store/types";
+import { AppState } from "../store/types";
 import Delay from "./common/DelayedRender";
 import { useStore } from "../store";
 
@@ -12,15 +12,15 @@ const Container = styled.div`
 `;
 
 function Post() {
-  const postState = useStore((state) => state.postState);
+  const appState = useStore((state) => state.appState);
 
   return (
     <Container>
-      <Delay until={postState <= PostState.DeviceDetectionShow}>
+      <Delay until={appState <= AppState.DeviceDetectionShow}>
         <FirstScreen />
       </Delay>
 
-      <Delay until={postState >= PostState.PostSecondScreenInit}>
+      <Delay until={appState >= AppState.PostSecondScreenInit}>
         <SecondScreen />
       </Delay>
     </Container>

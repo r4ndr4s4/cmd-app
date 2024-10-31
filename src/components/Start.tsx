@@ -3,8 +3,8 @@ import { useState } from "react";
 
 import siemensNixdorfPc from "../assets/siemens_nixdorf_pc.webp";
 import { useStore } from "../store";
-import { PostState } from "../store/types";
-import useDelayedPostStateChange from "../hooks/useDelayedPostStateChange";
+import { AppState } from "../store/types";
+import useDelayedAppStateChange from "../hooks/useDelayedAppStateChange";
 import useKeyPressOnContainer from "../hooks/useKeyPressOnContainer";
 import { HiddenInput } from "../utils/styles";
 import useDetectTouchScreenDevice from "../hooks/useDetectTouchScreenDevice";
@@ -47,7 +47,7 @@ function Start() {
   const [Y1, setY1] = useState(Y1default);
   const [Y2, setY2] = useState(Y2default);
 
-  const postState = useStore((state) => state.postState);
+  const appState = useStore((state) => state.appState);
 
   const isTouchScreenDevice = useDetectTouchScreenDevice();
   const windowWidth = useGetWindowWidth(() => {
@@ -59,9 +59,9 @@ function Start() {
     setY2(Y2default * ratioNumber);
   });
 
-  useDelayedPostStateChange({
-    from: PostState.StartScreenDone,
-    to: PostState.PostFirstScreenInit,
+  useDelayedAppStateChange({
+    from: AppState.StartScreenDone,
+    to: AppState.PostFirstScreenInit,
     ms: 1000,
   });
 
@@ -70,13 +70,13 @@ function Start() {
     () =>
       useStore.setState(
         () => ({
-          postState: PostState.AppInit,
+          appState: AppState.AppInit,
         }),
         undefined,
         {
-          type: "postState",
-          from: PostState.StartScreenInit,
-          to: PostState.AppInit,
+          type: "appState",
+          from: AppState.StartScreenInit,
+          to: AppState.AppInit,
         }
       )
   );
@@ -97,7 +97,7 @@ function Start() {
 
   return (
     <Container
-      startFadeOut={postState === PostState.StartScreenDone}
+      startFadeOut={appState === AppState.StartScreenDone}
       onKeyUp={handleKeyUp}
       tabIndex={0}
       ref={containerRef}
@@ -114,13 +114,13 @@ function Start() {
               setTimeout(() => {
                 useStore.setState(
                   () => ({
-                    postState: PostState.StartScreenDone,
+                    appState: AppState.StartScreenDone,
                   }),
                   undefined,
                   {
-                    type: "postState",
-                    from: PostState.StartScreenInit,
-                    to: PostState.StartScreenDone,
+                    type: "appState",
+                    from: AppState.StartScreenInit,
+                    to: AppState.StartScreenDone,
                   }
                 );
               }, 500);

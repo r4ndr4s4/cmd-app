@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from "react";
 
 import { useStore } from "../../../store";
 import Delay from "../../common/DelayedRender";
-import useDelayedPostStateChange from "../../../hooks/useDelayedPostStateChange";
-import { PostState } from "../../../store/types";
+import useDelayedAppStateChange from "../../../hooks/useDelayedAppStateChange";
+import { AppState } from "../../../store/types";
 
 const MEMORY = 32768;
 const INITIAL_MEMORY = 640;
@@ -13,21 +13,21 @@ function HardwareInfo() {
   const [testedMemory, setTestedMemory] = useState(INITIAL_MEMORY);
   const intervalRef = useRef<number>(0);
 
-  const postState = useStore((state) => state.postState);
+  const appState = useStore((state) => state.appState);
 
-  useDelayedPostStateChange({
-    from: PostState.PostFirstScreenInit,
-    to: PostState.MemoryTestShow,
+  useDelayedAppStateChange({
+    from: AppState.PostFirstScreenInit,
+    to: AppState.MemoryTestShow,
     ms: 1000,
   });
-  useDelayedPostStateChange({
-    from: PostState.MemoryTestShow,
-    to: PostState.MemoryTestStart,
+  useDelayedAppStateChange({
+    from: AppState.MemoryTestShow,
+    to: AppState.MemoryTestStart,
     ms: 1000,
   });
 
   useEffect(() => {
-    if (postState < PostState.MemoryTestStart || intervalRef.current) {
+    if (appState < AppState.MemoryTestStart || intervalRef.current) {
       return;
     }
 
@@ -36,7 +36,7 @@ function HardwareInfo() {
         Math.min(MEMORY, testedMemory + MEMORY_INCREMENT)
       );
     }, 25);
-  }, [postState]);
+  }, [appState]);
 
   useEffect(() => {
     if (testedMemory === MEMORY) {
@@ -44,13 +44,13 @@ function HardwareInfo() {
 
       useStore.setState(
         () => ({
-          postState: PostState.MemoryTestDone,
+          appState: AppState.MemoryTestDone,
         }),
         undefined,
         {
-          type: "postState",
-          from: PostState.MemoryTestStart,
-          to: PostState.MemoryTestDone,
+          type: "appState",
+          from: AppState.MemoryTestStart,
+          to: AppState.MemoryTestDone,
         }
       );
     }
@@ -62,7 +62,7 @@ function HardwareInfo() {
       <br />
 
       <p>PENTIUM-S CPU at 75MHz</p>
-      <Delay until={postState >= PostState.MemoryTestShow}>
+      <Delay until={appState >= AppState.MemoryTestShow}>
         <p>Memory Test: {testedMemory}K OK</p>
       </Delay>
     </>

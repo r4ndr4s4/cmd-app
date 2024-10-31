@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { useStore } from "./store";
 import Post from "./components/Post";
 import Cmd from "./components/Cmd";
-import { PostState } from "./store/types";
+import { AppState } from "./store/types";
 import Delay from "./components/common/DelayedRender";
 import Start from "./components/Start";
 
@@ -13,25 +13,25 @@ const Container = styled.div`
 `;
 
 function App() {
-  const postState = useStore((state) => state.postState);
+  const appState = useStore((state) => state.appState);
 
   return (
     <>
-      <Delay until={postState <= PostState.StartScreenDone}>
+      <Delay until={appState <= AppState.StartScreenDone}>
         <Start />
       </Delay>
 
       <Container>
         <Delay
           until={
-            postState >= PostState.PostFirstScreenInit &&
-            postState <= PostState.PostSecondScreenInit
+            appState >= AppState.PostFirstScreenInit &&
+            appState <= AppState.PostSecondScreenInit
           }
         >
           <Post />
         </Delay>
 
-        <Delay until={postState >= PostState.AppInit}>
+        <Delay until={appState >= AppState.AppInit}>
           <Cmd />
         </Delay>
       </Container>

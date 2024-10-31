@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from "react";
 
 import { useStore } from "../../../store";
 import Delay from "../../common/DelayedRender";
-import useDelayedPostStateChange from "../../../hooks/useDelayedPostStateChange";
-import { PostState } from "../../../store/types";
+import useDelayedAppStateChange from "../../../hooks/useDelayedAppStateChange";
+import { AppState } from "../../../store/types";
 import { ColoredSpan, LIGHT_TEXT_COLOR } from "../../../utils/styles";
 
 const PRIMARY_MASTER_DEVICE = "PCemHD";
@@ -23,16 +23,16 @@ function DeviceDetection() {
   const [deviceDetectionState, setDeviceDetectionState] = useState(0);
   const intervalRef = useRef<number>(0);
 
-  const postState = useStore((state) => state.postState);
+  const appState = useStore((state) => state.appState);
 
-  useDelayedPostStateChange({
-    from: PostState.MemoryTestDone,
-    to: PostState.DeviceDetectionShow,
+  useDelayedAppStateChange({
+    from: AppState.MemoryTestDone,
+    to: AppState.DeviceDetectionShow,
     ms: 1000,
   });
 
   useEffect(() => {
-    if (postState < PostState.DeviceDetectionShow || intervalRef.current) {
+    if (appState < AppState.DeviceDetectionShow || intervalRef.current) {
       return;
     }
 
@@ -41,7 +41,7 @@ function DeviceDetection() {
         (deviceDetectionState) => deviceDetectionState + 1
       );
     }, 1000);
-  }, [postState]);
+  }, [appState]);
 
   useEffect(() => {
     // first and last tick is an extra sec delay
@@ -50,13 +50,13 @@ function DeviceDetection() {
 
       useStore.setState(
         () => ({
-          postState: PostState.PostSecondScreenInit,
+          appState: AppState.PostSecondScreenInit,
         }),
         undefined,
         {
-          type: "postState",
-          from: PostState.DeviceDetectionShow,
-          to: PostState.PostSecondScreenInit,
+          type: "appState",
+          from: AppState.DeviceDetectionShow,
+          to: AppState.PostSecondScreenInit,
         }
       );
     }
@@ -64,7 +64,7 @@ function DeviceDetection() {
 
   return (
     <>
-      <Delay until={postState >= PostState.DeviceDetectionShow}>
+      <Delay until={appState >= AppState.DeviceDetectionShow}>
         <p>Award Plug and Play BIOS Extension v1.0A</p>
         <p>Copyright (C) 1997, Award Software, Inc.</p>
 

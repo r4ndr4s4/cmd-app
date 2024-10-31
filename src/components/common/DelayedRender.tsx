@@ -1,5 +1,6 @@
 import { ReactNode, useEffect, useState } from "react";
 
+// TODO rename to ???
 // TODO create unit tests, fix typing to disable edge cases
 function Delay({
   children,
