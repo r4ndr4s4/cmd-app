@@ -21,7 +21,7 @@ const X2default = 806;
 const Y1default = 446;
 const Y2default = 487;
 
-const Container = styled.div<{ startFadeOut: boolean }>`
+const Container = styled.div<{ fadeOut: boolean }>`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -29,7 +29,7 @@ const Container = styled.div<{ startFadeOut: boolean }>`
   height: 100vh;
   font-family: monospace;
   animation: ${(props) =>
-    props.startFadeOut ? "fade-out 0.25s ease-out both" : ""}; // TODO
+    props.fadeOut ? "fade-out 0.25s ease-out both" : ""};
 
   img {
     max-width: 100%;
@@ -84,7 +84,7 @@ function Start() {
   if (windowWidth < MININUM_WINDOW_WIDTH) {
     return (
       <Container
-        startFadeOut={false}
+        fadeOut={false}
         onKeyUp={handleKeyUp}
         tabIndex={0}
         ref={containerRef}
@@ -97,7 +97,7 @@ function Start() {
 
   return (
     <Container
-      startFadeOut={appState === AppState.StartScreenDone}
+      fadeOut={appState === AppState.StartScreenDone}
       onKeyUp={handleKeyUp}
       tabIndex={0}
       ref={containerRef}
