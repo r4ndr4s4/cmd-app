@@ -6,7 +6,7 @@ export interface HistoryCommand {
 }
 
 export interface State {
-  input: string; // TODO remove if unused
+  input: string;
   history: HistoryCommand[];
 
   appState: AppState;
@@ -22,7 +22,6 @@ export enum ActionTypes {
   SetHistoryRunCommand = "setHistory/runCommand",
 }
 
-// TODO use string members to show up in redux devtools correctly
 export enum AppState {
   // start screen (Start component)
   StartScreenInit = 0,
@@ -39,5 +38,5 @@ export enum AppState {
   PostSecondScreenInit,
 
   // app (Cmd component)
-  AppInit,
+  CmdInit,
 }

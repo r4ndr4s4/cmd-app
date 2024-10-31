@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
 import { useStore } from "../../../store";
-import Delay from "../../common/DelayedRender";
+import DelayRender from "../../common/DelayRender";
 import useDelayedAppStateChange from "../../../hooks/useDelayedAppStateChange";
 import { AppState } from "../../../store/types";
 
@@ -62,9 +62,9 @@ function HardwareInfo() {
       <br />
 
       <p>PENTIUM-S CPU at 75MHz</p>
-      <Delay until={appState >= AppState.MemoryTestShow}>
+      <DelayRender until={appState >= AppState.MemoryTestShow}>
         <p>Memory Test: {testedMemory}K OK</p>
-      </Delay>
+      </DelayRender>
     </>
   );
 }

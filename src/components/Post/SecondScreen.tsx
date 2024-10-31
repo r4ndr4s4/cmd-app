@@ -23,13 +23,13 @@ function SecondScreen() {
     () =>
       useStore.setState(
         () => ({
-          appState: AppState.AppInit,
+          appState: AppState.CmdInit,
         }),
         undefined,
         {
           type: "appState",
           from: AppState.PostSecondScreenInit,
-          to: AppState.AppInit,
+          to: AppState.CmdInit,
         }
       )
   );

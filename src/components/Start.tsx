@@ -70,13 +70,13 @@ function Start() {
     () =>
       useStore.setState(
         () => ({
-          appState: AppState.AppInit,
+          appState: AppState.CmdInit,
         }),
         undefined,
         {
           type: "appState",
           from: AppState.StartScreenInit,
-          to: AppState.AppInit,
+          to: AppState.CmdInit,
         }
       )
   );

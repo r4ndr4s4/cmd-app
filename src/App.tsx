@@ -4,7 +4,7 @@ import { useStore } from "./store";
 import Post from "./components/Post";
 import Cmd from "./components/Cmd";
 import { AppState } from "./store/types";
-import Delay from "./components/common/DelayedRender";
+import DelayRender from "./components/common/DelayRender";
 import Start from "./components/Start";
 
 const Container = styled.div`
@@ -17,23 +17,28 @@ function App() {
 
   return (
     <>
-      <Delay until={appState <= AppState.StartScreenDone}>
+      <DelayRender
+        until={
+          appState >= AppState.StartScreenInit &&
+          appState <= AppState.StartScreenDone
+        }
+      >
         <Start />
-      </Delay>
+      </DelayRender>
 
       <Container>
-        <Delay
+        <DelayRender
           until={
             appState >= AppState.PostFirstScreenInit &&
             appState <= AppState.PostSecondScreenInit
           }
         >
           <Post />
-        </Delay>
+        </DelayRender>
 
-        <Delay until={appState >= AppState.AppInit}>
+        <DelayRender until={appState >= AppState.CmdInit}>
           <Cmd />
-        </Delay>
+        </DelayRender>
       </Container>
     </>
   );

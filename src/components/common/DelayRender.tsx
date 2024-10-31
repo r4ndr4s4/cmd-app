@@ -1,8 +1,7 @@
 import { ReactNode, useEffect, useState } from "react";
 
-// TODO rename to ???
 // TODO create unit tests, fix typing to disable edge cases
-function Delay({
+function DelayRender({
   children,
   ms,
   until,
@@ -32,4 +31,4 @@ function Delay({
   return <>{children}</>;
 }
 
-export default Delay;
+export default DelayRender;

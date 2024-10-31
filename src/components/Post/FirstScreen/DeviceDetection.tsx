@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
 import { useStore } from "../../../store";
-import Delay from "../../common/DelayedRender";
+import DelayRender from "../../common/DelayRender";
 import useDelayedAppStateChange from "../../../hooks/useDelayedAppStateChange";
 import { AppState } from "../../../store/types";
 import { ColoredSpan, LIGHT_TEXT_COLOR } from "../../../utils/styles";
@@ -64,11 +64,11 @@ function DeviceDetection() {
 
   return (
     <>
-      <Delay until={appState >= AppState.DeviceDetectionShow}>
+      <DelayRender until={appState >= AppState.DeviceDetectionShow}>
         <p>Award Plug and Play BIOS Extension v1.0A</p>
         <p>Copyright (C) 1997, Award Software, Inc.</p>
 
-        <Delay ms={1000}>
+        <DelayRender ms={1000}>
           <p>
             Detecting IDE Primary Master...{" "}
             {deviceDetectionState >= 2 ? PRIMARY_MASTER_DEVICE : <NoDevice />}
@@ -85,8 +85,8 @@ function DeviceDetection() {
             Detecting IDE Secondary Slave...{" "}
             {deviceDetectionState >= 5 ? SECONDARY_SLAVE_DEVICE : <NoDevice />}
           </p>
-        </Delay>
-      </Delay>
+        </DelayRender>
+      </DelayRender>
     </>
   );
 }
