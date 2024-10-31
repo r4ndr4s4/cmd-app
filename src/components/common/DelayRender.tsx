@@ -1,6 +1,5 @@
 import { ReactNode, useEffect, useState } from "react";
 
-// TODO create unit tests, fix typing to disable edge cases
 function DelayRender({
   children,
   ms,
@@ -8,7 +7,7 @@ function DelayRender({
   untilRender,
 }: {
   children: ReactNode;
-  ms?: number; // TODO handle undefined with guarding
+  ms?: number;
   until?: boolean;
   untilRender?: ReactNode;
 }) {
