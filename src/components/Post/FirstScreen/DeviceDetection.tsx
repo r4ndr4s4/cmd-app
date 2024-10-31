@@ -37,7 +37,6 @@ function DeviceDetection() {
     }
 
     intervalRef.current = setInterval(() => {
-      // TODO make secondary device detection(s) longer
       setDeviceDetectionState(
         (deviceDetectionState) => deviceDetectionState + 1
       );

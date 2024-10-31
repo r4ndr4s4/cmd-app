@@ -14,8 +14,8 @@ const getTop = (windowWidth: number) =>
 
 const Container = styled.div<{ windowWidth: number }>`
   position: absolute;
-  top: ${(props) => getTop(props.windowWidth)}px; // TODO fix growing distance
-  left: ${(props) => getLeft(props.windowWidth)}px; // TODO fix growing distance
+  top: ${(props) => getTop(props.windowWidth)}px;
+  left: ${(props) => getLeft(props.windowWidth)}px;
 
   span {
     ${divCommon}
@@ -38,7 +38,7 @@ const Container = styled.div<{ windowWidth: number }>`
     margin-top: -5px;
     border-width: 5px;
     border-style: solid;
-    border-color: transparent beige transparent transparent;
+    border-color: transparent var(--light-bg-color) transparent transparent;
   }
 `;
 

@@ -2,8 +2,8 @@ import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 
 export const divCommon = css`
-  background-color: beige; // TODO
-  color: black; // TODO
+  background-color: var(--light-bg-color);
+  color: var(--main-bg-color);
   text-align: center;
   border-radius: 6px;
   font-family: monospace;

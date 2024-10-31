@@ -58,23 +58,9 @@ const getCommands = () => {
 
               <tr>
                 <th scope="row">
-                  <Command>cv</Command>
-                </th>
-                <td>Request my current CV</td>
-              </tr>
-
-              <tr>
-                <th scope="row">
                   <Command>contact</Command>
                 </th>
                 <td>Show my e-mail address</td>
-              </tr>
-
-              <tr>
-                <th scope="row">
-                  <Command>message</Command>
-                </th>
-                <td>Send me a message here anonymously</td>
               </tr>
 
               <tr>
@@ -216,16 +202,6 @@ const getCommands = () => {
           </p>
         </>
       ),
-    },
-    {
-      // TODO implement
-      command: "message",
-      result: <p>-</p>,
-    },
-    {
-      // TODO implement
-      command: "cv",
-      result: <p>-</p>,
     },
   ];
 };

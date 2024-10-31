@@ -10,7 +10,7 @@ function Delay({
   children: ReactNode;
   ms?: number; // TODO handle undefined with guarding
   until?: boolean;
-  untilRender?: ReactNode; // TODO remove if unused
+  untilRender?: ReactNode;
 }) {
   const [isRender, setRender] = useState(false);
 

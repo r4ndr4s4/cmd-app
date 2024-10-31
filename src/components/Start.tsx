@@ -95,7 +95,6 @@ function Start() {
     );
   }
 
-  // TODO fade in
   return (
     <Container
       startFadeOut={postState === PostState.StartScreenDone}
@@ -112,7 +111,6 @@ function Start() {
             shape="rect"
             coords={`${X1.toString()}, ${Y1.toString()}, ${X2.toString()}, ${Y2.toString()}`}
             onClick={() => {
-              // TODO play sound, CRT effect
               setTimeout(() => {
                 useStore.setState(
                   () => ({
