@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 
 import { divCommon } from "./styles";
 import { IMG_WIDTH } from "../Start";
+import { LIGHT_BG_COLOR } from "../../utils/styles";
 
 const TOOLTIP_POS_X = 820;
 const TOOLTIP_POS_Y = 445;
@@ -38,7 +39,7 @@ const Container = styled.div<{ windowWidth: number }>`
     margin-top: -5px;
     border-width: 5px;
     border-style: solid;
-    border-color: transparent var(--light-bg-color) transparent transparent;
+    border-color: transparent ${LIGHT_BG_COLOR} transparent transparent;
   }
 `;
 

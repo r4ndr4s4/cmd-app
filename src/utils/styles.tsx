@@ -16,5 +16,6 @@ export const ColoredSpan = styled.span`
 `;
 
 export const MAIN_BG_COLOR = "var(--main-bg-color)";
+export const LIGHT_BG_COLOR = "var(--light-bg-color)";
 export const MAIN_TEXT_COLOR = "var(--main-text-color)";
 export const LIGHT_TEXT_COLOR = "var(--light-text-color)";

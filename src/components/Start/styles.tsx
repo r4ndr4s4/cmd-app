@@ -1,9 +1,10 @@
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
+import { LIGHT_BG_COLOR, MAIN_BG_COLOR } from "../../utils/styles";
 
 export const divCommon = css`
-  background-color: var(--light-bg-color);
-  color: var(--main-bg-color);
+  background-color: ${LIGHT_BG_COLOR};
+  color: ${MAIN_BG_COLOR};
   text-align: center;
   border-radius: 6px;
   font-family: monospace;
