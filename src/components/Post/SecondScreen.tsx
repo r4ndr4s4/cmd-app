@@ -8,6 +8,7 @@ import useKeyPressOnContainer from "../../hooks/useKeyPressOnContainer";
 import { useStore } from "../../store";
 import { AppState } from "../../store/types";
 import { HiddenInput } from "../../utils/styles";
+import useTrackComponentRender from "../../hooks/useTrackComponentRender";
 
 const Container = styled.div`
   height: calc(100vh - 20px);
@@ -18,9 +19,13 @@ const Container = styled.div`
 `;
 
 function SecondScreen() {
+  const { component, trackEvent } = useTrackComponentRender("SECOND_SCREEN");
+
   const { containerRef, hiddenInputRef, handleKeyUp } = useKeyPressOnContainer(
     ["Delete", "Escape", "Enter", " "],
-    () =>
+    () => {
+      trackEvent(`${component} interaction`, { event: "PRESS_NEXT" });
+
       useStore.setState(
         () => ({
           appState: AppState.CmdInit,
@@ -31,7 +36,8 @@ function SecondScreen() {
           from: AppState.PostSecondScreenInit,
           to: AppState.CmdInit,
         }
-      )
+      );
+    }
   );
 
   return (

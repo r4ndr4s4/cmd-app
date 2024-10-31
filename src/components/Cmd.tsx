@@ -12,6 +12,7 @@ import { ActionTypes } from "../store/types";
 import { runCommand } from "../store/actions";
 import useDetectTouchScreenDevice from "../hooks/useDetectTouchScreenDevice";
 import { HiddenInput } from "../utils/styles";
+import useTrackComponentRender from "../hooks/useTrackComponentRender";
 
 const Container = styled.div`
   padding-top: 10px;
@@ -28,6 +29,8 @@ function Cmd() {
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLDivElement>(null);
   const hiddenInputRef = useRef<HTMLInputElement>(null);
+
+  useTrackComponentRender("CMD");
 
   const history = useStore((state) => state.history);
 

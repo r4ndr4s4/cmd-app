@@ -1,4 +1,5 @@
 import { nanoid } from "nanoid";
+import { track } from "@vercel/analytics/react";
 
 import getCommands from "../commands";
 import { formatCommand } from "../utils/utils";
@@ -48,6 +49,8 @@ export const runCommand = (commandToRun: string) => {
       undefined,
       { type: ActionTypes.SetHistoryRunCommand, command: command.command }
     );
+
+    track("CMD interaction", { event: "COMMAND_RUN" });
   } catch (e: unknown) {
     useStore.setState(
       (state) => ({

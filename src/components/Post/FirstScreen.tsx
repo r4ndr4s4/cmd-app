@@ -9,6 +9,7 @@ import { useStore } from "../../store";
 import useKeyPressOnContainer from "../../hooks/useKeyPressOnContainer";
 import { AppState } from "../../store/types";
 import { HiddenInput } from "../../utils/styles";
+import useTrackComponentRender from "../../hooks/useTrackComponentRender";
 
 const Container = styled.div`
   height: calc(100vh - 20px);
@@ -31,9 +32,13 @@ const HardwareContainer = styled.div`
 function FirstScreen() {
   const appState = useStore((state) => state.appState);
 
+  const { component, trackEvent } = useTrackComponentRender("FIRST_SCREEN");
+
   const { containerRef, hiddenInputRef, handleKeyUp } = useKeyPressOnContainer(
     ["Delete", "Escape", "Enter", " "],
-    () =>
+    () => {
+      trackEvent(`${component} interaction`, { event: "PRESS_SKIP" });
+
       useStore.setState(
         () => ({
           appState: AppState.CmdInit,
@@ -44,7 +49,8 @@ function FirstScreen() {
           from: appState,
           to: AppState.CmdInit,
         }
-      )
+      );
+    }
   );
 
   return (

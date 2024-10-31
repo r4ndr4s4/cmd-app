@@ -12,6 +12,7 @@ import LowResolution from "./Start/LowResolution";
 import Tooltip from "./Start/Tooltip";
 import { Notification } from "./Start/styles";
 import useGetWindowWidth from "../hooks/useGetWindowWidth";
+import useTrackComponentRender from "../hooks/useTrackComponentRender";
 
 export const IMG_WIDTH = 1577;
 const MININUM_WINDOW_WIDTH = 1366;
@@ -47,6 +48,8 @@ function Start() {
   const [Y1, setY1] = useState(Y1default);
   const [Y2, setY2] = useState(Y2default);
 
+  const { component, trackEvent } = useTrackComponentRender("START");
+
   const appState = useStore((state) => state.appState);
 
   const isTouchScreenDevice = useDetectTouchScreenDevice();
@@ -67,7 +70,9 @@ function Start() {
 
   const { containerRef, hiddenInputRef, handleKeyUp } = useKeyPressOnContainer(
     ["Delete", "Escape", "Enter", " "],
-    () =>
+    () => {
+      trackEvent(`${component} interaction`, { event: "PRESS_SKIP" });
+
       useStore.setState(
         () => ({
           appState: AppState.CmdInit,
@@ -78,7 +83,8 @@ function Start() {
           from: AppState.StartScreenInit,
           to: AppState.CmdInit,
         }
-      )
+      );
+    }
   );
 
   if (windowWidth < MININUM_WINDOW_WIDTH) {
@@ -111,6 +117,8 @@ function Start() {
             shape="rect"
             coords={`${X1.toString()}, ${Y1.toString()}, ${X2.toString()}, ${Y2.toString()}`}
             onClick={() => {
+              trackEvent(`${component} interaction`, { event: "PRESS_START" });
+
               setTimeout(() => {
                 useStore.setState(
                   () => ({
