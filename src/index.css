@@ -18,10 +18,6 @@ body {
   font-size: 18px;
 }
 
-p {
-  margin: 0;
-}
-
 a {
   color: var(--light-text-color);
 }

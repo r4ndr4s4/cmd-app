@@ -9,6 +9,10 @@ import { useStore } from "../store";
 const Container = styled.div`
   padding-top: 10px;
   padding-bottom: 10px;
+
+  p {
+    margin: 0;
+  }
 `;
 
 function Post() {
