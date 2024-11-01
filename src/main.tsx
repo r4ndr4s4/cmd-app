@@ -25,7 +25,6 @@ Sentry.init({
 export const analytics = GAnalytics({
   app: "r4ndr4s4-me",
   plugins: [
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     googleAnalytics({
       measurementIds: ["G-QG8NKYW2EM"],
     }),
