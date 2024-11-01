@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [
     react(),
     sentryVitePlugin({
-      org: "r4ndr4s4me",
+      org: "r4ndr4s4-me",
       project: "r4ndr4s4-me",
       telemetry: false,
     }),
