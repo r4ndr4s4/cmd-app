@@ -24,7 +24,7 @@ function SecondScreen() {
   const { containerRef, hiddenInputRef, handleKeyUp } = useKeyPressOnContainer(
     ["Delete", "Escape", "Enter", " "],
     () => {
-      trackEvent(`${component} interaction`, { event: "PRESS_NEXT" });
+      trackEvent(`${component} interaction`, "PRESS_NEXT");
 
       useStore.setState(
         () => ({

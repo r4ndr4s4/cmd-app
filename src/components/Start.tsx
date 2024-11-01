@@ -71,7 +71,7 @@ function Start() {
   const { containerRef, hiddenInputRef, handleKeyUp } = useKeyPressOnContainer(
     ["Delete", "Escape", "Enter", " "],
     () => {
-      trackEvent(`${component} interaction`, { event: "PRESS_SKIP" });
+      trackEvent(`${component} interaction`, "PRESS_SKIP");
 
       useStore.setState(
         () => ({
@@ -117,7 +117,7 @@ function Start() {
             shape="rect"
             coords={`${X1.toString()}, ${Y1.toString()}, ${X2.toString()}, ${Y2.toString()}`}
             onClick={() => {
-              trackEvent(`${component} interaction`, { event: "PRESS_START" });
+              trackEvent(`${component} interaction`, "PRESS_START");
 
               setTimeout(() => {
                 useStore.setState(

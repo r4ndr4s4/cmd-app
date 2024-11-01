@@ -37,7 +37,7 @@ function FirstScreen() {
   const { containerRef, hiddenInputRef, handleKeyUp } = useKeyPressOnContainer(
     ["Delete", "Escape", "Enter", " "],
     () => {
-      trackEvent(`${component} interaction`, { event: "PRESS_SKIP" });
+      trackEvent(`${component} interaction`, "PRESS_SKIP");
 
       useStore.setState(
         () => ({
