@@ -6,6 +6,7 @@ import { Notification } from "./styles";
 import useDetectTouchScreenDevice from "../../hooks/useDetectTouchScreenDevice";
 
 const Information = styled.p`
+  margin: 0;
   padding: 5px;
   text-align: justify;
 `;
