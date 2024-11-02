@@ -17,10 +17,10 @@ import useTrackComponentRender from "../hooks/useTrackComponentRender";
 export const IMG_WIDTH = 1577;
 const MININUM_WINDOW_WIDTH = 1366;
 
-const X1default = 729;
+const X1default = 725;
 const X2default = 806;
-const Y1default = 446;
-const Y2default = 487;
+const Y1default = 444;
+const Y2default = 489;
 
 const Container = styled.div<{ fadeOut: boolean }>`
   display: flex;
