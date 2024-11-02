@@ -28,8 +28,8 @@ function LowResolution({
       </div>
 
       <Notification>
-        Or {isTouchScreenDevice ? "touch the screen then" : ""} press ENTER to
-        skip to the mobile friendly part
+        Or {isTouchScreenDevice && "touch the screen then"} press <b>ENTER</b>{" "}
+        to skip to the mobile friendly part
       </Notification>
     </>
   );

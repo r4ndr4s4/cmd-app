@@ -7,9 +7,13 @@
 
 body {
   --main-bg-color: black;
-  --light-bg-color: beige; /* used for tooltip and notification comopnents on start screen */
   --main-text-color: #a7a7a7;
   --light-text-color: #fafafa;
+
+  /* used for tooltip and notification components on start screen */
+  --start-bg-color: #e9eae5;
+  --start-border-color: #a09e8f;
+  --start-text-color: #2b2424;
 
   background-color: var(--main-bg-color);
   color: var(--main-text-color);

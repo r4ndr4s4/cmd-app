@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 
 import { divCommon } from "./styles";
 import { IMG_WIDTH } from "../Start";
-import { LIGHT_BG_COLOR } from "../../utils/styles";
+import { START_BG_COLOR } from "../../utils/styles";
 
 const TOOLTIP_POS_X = 820;
 const TOOLTIP_POS_Y = 445;
@@ -28,7 +28,7 @@ const Container = styled.div<{ windowWidth: number }>`
     z-index: 1;
     top: -5px;
     left: 105%;
-    animation: vibrate 0.3s linear infinite 3s both;
+    animation: vibrate 0.3s linear infinite both;
   }
 
   span::after {
@@ -39,7 +39,7 @@ const Container = styled.div<{ windowWidth: number }>`
     margin-top: -5px;
     border-width: 5px;
     border-style: solid;
-    border-color: transparent ${LIGHT_BG_COLOR} transparent transparent;
+    border-color: transparent ${START_BG_COLOR} transparent transparent;
   }
 `;
 

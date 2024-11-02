@@ -150,9 +150,15 @@ function Start() {
       <Tooltip windowWidth={windowWidth} />
 
       <Notification>
-        {isTouchScreenDevice
-          ? "Or touch the screen then press ENTER to skip to the app"
-          : "Or press ESC to skip to the app"}
+        {isTouchScreenDevice ? (
+          <span>
+            Or touch the screen then press <b>ENTER</b> to skip to the app
+          </span>
+        ) : (
+          <span>
+            Or press <b>ESC</b> to skip to the app
+          </span>
+        )}
       </Notification>
     </Container>
   );

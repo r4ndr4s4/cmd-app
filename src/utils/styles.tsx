@@ -26,6 +26,9 @@ export const ContentContainer = styled.div`
 `;
 
 export const MAIN_BG_COLOR = "var(--main-bg-color)";
-export const LIGHT_BG_COLOR = "var(--light-bg-color)";
 export const MAIN_TEXT_COLOR = "var(--main-text-color)";
 export const LIGHT_TEXT_COLOR = "var(--light-text-color)";
+
+export const START_BG_COLOR = "var(--start-bg-color)";
+export const START_BORDER_COLOR = "var(--start-border-color)";
+export const START_TEXT_COLOR = "var(--start-text-color)";
