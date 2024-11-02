@@ -5,7 +5,11 @@ import { useStore } from "../../../store";
 import DelayRender from "../../common/DelayRender";
 import useDelayedAppStateChange from "../../../hooks/useDelayedAppStateChange";
 import { AppState } from "../../../store/types";
-import { ColoredSpan, LIGHT_TEXT_COLOR } from "../../../utils/styles";
+import {
+  ColoredSpan,
+  InlinePre,
+  LIGHT_TEXT_COLOR,
+} from "../../../utils/styles";
 
 const PRIMARY_MASTER_DEVICE = "PCemHD";
 const PRIMARY_SLAVE_DEVICE = "PCemCD";
@@ -67,17 +71,20 @@ function DeviceDetection() {
     }
   }, [deviceDetectionState]);
 
+  // prettier-ignore
   return (
     <>
       <DelayRender until={appState >= AppState.DeviceDetectionShow}>
-        <p>Award Plug and Play BIOS Extension v1.0A</p>
+        <p>
+          Award Plug and Play BIOS Extension <InlinePre> v1.0A</InlinePre>
+        </p>
         <p>Copyright (C) 1997, Award Software, Inc.</p>
 
         <DelayRender ms={1000}>
           <Container>
             {deviceDetectionState >= 1 && (
               <p>
-                Detecting IDE Primary Master...{" "}
+                Detecting IDE Primary Master <InlinePre> ...</InlinePre>{" "}
                 {deviceDetectionState >= 2 ? (
                   PRIMARY_MASTER_DEVICE
                 ) : (
@@ -87,7 +94,7 @@ function DeviceDetection() {
             )}
             {deviceDetectionState >= 2 && (
               <p>
-                Detecting IDE Primary Slave...{" "}
+                Detecting IDE Primary Slave <InlinePre>  ...</InlinePre>{" "}
                 {deviceDetectionState >= 3 ? (
                   PRIMARY_SLAVE_DEVICE
                 ) : (
@@ -107,7 +114,7 @@ function DeviceDetection() {
             )}
             {deviceDetectionState >= 4 && (
               <p>
-                Detecting IDE Secondary Slave...{" "}
+                Detecting IDE Secondary Slave ...{" "}
                 {deviceDetectionState >= 5 ? (
                   SECONDARY_SLAVE_DEVICE
                 ) : (
