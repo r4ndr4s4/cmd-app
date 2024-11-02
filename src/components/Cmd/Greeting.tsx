@@ -8,7 +8,7 @@ import {
 function Greeting() {
   return (
     <ContentContainer>
-      <p>Hello World!</p>
+      <p>Hello World! ✨</p>
 
       <p>
         Welcome to my personal <del>site</del> app. Type in a command and press{" "}

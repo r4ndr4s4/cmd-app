@@ -90,7 +90,7 @@ const getCommands = () => {
       command: "intro",
       result: (
         <ContentContainer>
-          <p>Hello, I'm András 👋</p>
+          <p>Hello, I'm András! 👋</p>
 
           <p>I'm a full-stack developer focusing on the frontend.</p>
 

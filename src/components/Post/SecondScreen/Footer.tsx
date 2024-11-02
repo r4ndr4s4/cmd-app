@@ -9,7 +9,7 @@ function Footer() {
 
       <p>
         Press <ColoredSpan color={LIGHT_TEXT_COLOR}>ENTER</ColoredSpan> to
-        continue
+        continue.
       </p>
     </>
   );
