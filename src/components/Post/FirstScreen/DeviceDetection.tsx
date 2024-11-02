@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import styled from "@emotion/styled";
 
 import { useStore } from "../../../store";
 import DelayRender from "../../common/DelayRender";
@@ -18,6 +19,10 @@ function NoDevice() {
     </span>
   );
 }
+
+const Container = styled.div`
+  margin-left: 20px;
+`;
 
 function DeviceDetection() {
   const [deviceDetectionState, setDeviceDetectionState] = useState(0);
@@ -69,22 +74,48 @@ function DeviceDetection() {
         <p>Copyright (C) 1997, Award Software, Inc.</p>
 
         <DelayRender ms={1000}>
-          <p>
-            Detecting IDE Primary Master...{" "}
-            {deviceDetectionState >= 2 ? PRIMARY_MASTER_DEVICE : <NoDevice />}
-          </p>
-          <p>
-            Detecting IDE Primary Slave...{" "}
-            {deviceDetectionState >= 3 ? PRIMARY_SLAVE_DEVICE : <NoDevice />}
-          </p>
-          <p>
-            Detecting IDE Secondary Master...{" "}
-            {deviceDetectionState >= 4 ? SECONDARY_MASTER_DEVICE : <NoDevice />}
-          </p>
-          <p>
-            Detecting IDE Secondary Slave...{" "}
-            {deviceDetectionState >= 5 ? SECONDARY_SLAVE_DEVICE : <NoDevice />}
-          </p>
+          <Container>
+            {deviceDetectionState >= 1 && (
+              <p>
+                Detecting IDE Primary Master...{" "}
+                {deviceDetectionState >= 2 ? (
+                  PRIMARY_MASTER_DEVICE
+                ) : (
+                  <NoDevice />
+                )}
+              </p>
+            )}
+            {deviceDetectionState >= 2 && (
+              <p>
+                Detecting IDE Primary Slave...{" "}
+                {deviceDetectionState >= 3 ? (
+                  PRIMARY_SLAVE_DEVICE
+                ) : (
+                  <NoDevice />
+                )}
+              </p>
+            )}
+            {deviceDetectionState >= 3 && (
+              <p>
+                Detecting IDE Secondary Master...{" "}
+                {deviceDetectionState >= 4 ? (
+                  SECONDARY_MASTER_DEVICE
+                ) : (
+                  <NoDevice />
+                )}
+              </p>
+            )}
+            {deviceDetectionState >= 4 && (
+              <p>
+                Detecting IDE Secondary Slave...{" "}
+                {deviceDetectionState >= 5 ? (
+                  SECONDARY_SLAVE_DEVICE
+                ) : (
+                  <NoDevice />
+                )}
+              </p>
+            )}
+          </Container>
         </DelayRender>
       </DelayRender>
     </>

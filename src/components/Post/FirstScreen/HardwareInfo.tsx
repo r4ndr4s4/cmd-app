@@ -4,6 +4,7 @@ import { useStore } from "../../../store";
 import DelayRender from "../../common/DelayRender";
 import useDelayedAppStateChange from "../../../hooks/useDelayedAppStateChange";
 import { AppState } from "../../../store/types";
+import { InlinePre } from "../../../utils/styles";
 
 const MEMORY = 32768;
 const INITIAL_MEMORY = 640;
@@ -56,6 +57,9 @@ function HardwareInfo() {
     }
   }, [testedMemory]);
 
+  const formattedTestedMemory = testedMemory.toString().padStart(5, " ");
+
+  // prettier-ignore
   return (
     <>
       <p>(55XWUQ0E) Intel i430VX PCIset(TM)</p>
@@ -63,7 +67,9 @@ function HardwareInfo() {
 
       <p>PENTIUM-S CPU at 75MHz</p>
       <DelayRender until={appState >= AppState.MemoryTestShow}>
-        <p>Memory Test: {testedMemory}K OK</p>
+        <p>
+          <InlinePre>Memory Test :  {formattedTestedMemory}K OK</InlinePre>
+        </p>
       </DelayRender>
     </>
   );
