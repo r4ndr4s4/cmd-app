@@ -3,6 +3,10 @@ import { css } from "@emotion/react";
 
 import { InlinePre, MAIN_TEXT_COLOR } from "../../../utils/styles";
 
+const Container = styled.div`
+  margin-bottom: 50px;
+`;
+
 const tableCommon = css`
   border-left: 4px double ${MAIN_TEXT_COLOR};
   border-right: 4px double ${MAIN_TEXT_COLOR};
@@ -60,7 +64,7 @@ const BottomTable = styled.table`
 function HardwareTable() {
   // prettier-ignore
   return (
-    <>
+    <Container>
         <TopTable>
           <tbody>
             <tr>
@@ -105,14 +109,14 @@ function HardwareTable() {
             </tr>
             <tr>
               <th scope="row">Pri. Master Disk</th>
-              <td>LBA, Mode 2, 2621MB</td>
+              <td>LBA ,Mode 2, 2621MB</td>
 
               <th scope="row">Paralell Port(s)</th>
               <td>378</td>
             </tr>
             <tr>
               <th scope="row">Pri. Slave Disk</th>
-              <td>CDROM, Mode 4</td>
+              <td>CDROM,Mode 4</td>
 
               <th scope="row">EDO DRAM at Row(s)</th>
               <td>None</td>
@@ -133,7 +137,7 @@ function HardwareTable() {
             </tr>
           </tbody>
         </BottomTable>
-    </>
+    </Container>
   );
 }
 

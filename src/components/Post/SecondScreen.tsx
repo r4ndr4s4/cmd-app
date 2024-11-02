@@ -48,13 +48,10 @@ function SecondScreen() {
       onClick={() => hiddenInputRef.current?.focus()}
     >
       <Header />
-      <br />
 
       <HardwareTable />
-      <br />
 
       <DeviceTable />
-      <br />
 
       <Footer />
 

@@ -3,7 +3,7 @@ import { ColoredSpan, LIGHT_TEXT_COLOR } from "../../../utils/styles";
 function Footer() {
   return (
     <>
-      <p>Verifying DMI Pool Data.......</p>
+      <p>Verifying DMI Pool Data .......</p>
       <p>Starting MS-DOS...</p>
       <br />
 

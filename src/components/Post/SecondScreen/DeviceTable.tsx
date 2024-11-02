@@ -2,6 +2,10 @@ import styled from "@emotion/styled";
 
 import { MAIN_TEXT_COLOR } from "../../../utils/styles";
 
+const Container = styled.div`
+  margin-bottom: 40px;
+`;
+
 const Table = styled.table`
   width: 100%;
   border-spacing: 0;
@@ -31,7 +35,7 @@ const Table = styled.table`
 
 function DeviceTable() {
   return (
-    <>
+    <Container>
       <p>PCI device listing.....</p>
 
       <Table>
@@ -69,7 +73,7 @@ function DeviceTable() {
           </tr>
         </tbody>
       </Table>
-    </>
+    </Container>
   );
 }
 
