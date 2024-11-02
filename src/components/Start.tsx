@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import siemensNixdorfPc from "../assets/siemens_nixdorf_pc.webp";
 import { useStore } from "../store";
@@ -54,12 +54,7 @@ function Start() {
 
   const isTouchScreenDevice = useDetectTouchScreenDevice();
   const windowWidth = useGetWindowWidth(() => {
-    const ratioNumber = Math.min(window.innerWidth, IMG_WIDTH) / IMG_WIDTH;
-
-    setX1(X1default * ratioNumber);
-    setX2(X2default * ratioNumber);
-    setY1(Y1default * ratioNumber);
-    setY2(Y2default * ratioNumber);
+    remapPowerButton();
   });
 
   useDelayedAppStateChange({
@@ -86,6 +81,19 @@ function Start() {
       );
     }
   );
+
+  useEffect(() => {
+    remapPowerButton();
+  }, [windowWidth]);
+
+  const remapPowerButton = () => {
+    const ratioNumber = Math.min(window.innerWidth, IMG_WIDTH) / IMG_WIDTH;
+
+    setX1(X1default * ratioNumber);
+    setX2(X2default * ratioNumber);
+    setY1(Y1default * ratioNumber);
+    setY2(Y2default * ratioNumber);
+  };
 
   if (windowWidth < MININUM_WINDOW_WIDTH) {
     return (
