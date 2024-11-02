@@ -19,7 +19,7 @@ const getTop = (windowWidth: number) => {
   let offset = 0;
 
   if (windowWidth < IMG_WIDTH) {
-    offset = Math.max((windowWidth - IMG_WIDTH) / 40, -4);
+    offset = Math.max((windowWidth - IMG_WIDTH) / 40, -9);
   }
 
   return (

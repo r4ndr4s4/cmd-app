@@ -15,7 +15,7 @@ import useGetWindowWidth from "../hooks/useGetWindowWidth";
 import useTrackComponentRender from "../hooks/useTrackComponentRender";
 
 export const IMG_WIDTH = 1577;
-const MININUM_WINDOW_WIDTH = 1366;
+export const MININUM_WINDOW_WIDTH = 768;
 
 const X1default = 725;
 const X2default = 806;
