@@ -28,7 +28,7 @@ const Container = styled.div<{ windowWidth: number }>`
     z-index: 1;
     top: -5px;
     left: 105%;
-    animation: vibrate 0.3s linear infinite both;
+    animation: vibrate 0.3s linear infinite 5s both;
   }
 
   span::after {
