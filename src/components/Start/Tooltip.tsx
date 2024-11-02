@@ -4,14 +4,28 @@ import { divCommon } from "./styles";
 import { IMG_WIDTH } from "../Start";
 import { START_BG_COLOR } from "../../utils/styles";
 
-const TOOLTIP_POS_X = 820;
-const TOOLTIP_POS_Y = 445;
+const TOOLTIP_POS_X = 822;
+const TOOLTIP_POS_Y = 444;
 
-const getLeft = (windowWidth: number) =>
-  TOOLTIP_POS_X * (windowWidth / IMG_WIDTH);
+const getLeft = (windowWidth: number) => {
+  if (windowWidth > IMG_WIDTH) {
+    return TOOLTIP_POS_X + (windowWidth - IMG_WIDTH) / 2;
+  }
 
-const getTop = (windowWidth: number) =>
-  TOOLTIP_POS_Y * (Math.min(windowWidth, IMG_WIDTH) / IMG_WIDTH);
+  return TOOLTIP_POS_X * (windowWidth / IMG_WIDTH);
+};
+
+const getTop = (windowWidth: number) => {
+  let offset = 0;
+
+  if (windowWidth < IMG_WIDTH) {
+    offset = Math.max((windowWidth - IMG_WIDTH) / 40, -4);
+  }
+
+  return (
+    TOOLTIP_POS_Y * (Math.min(windowWidth, IMG_WIDTH) / IMG_WIDTH) + offset
+  );
+};
 
 const Container = styled.div<{ windowWidth: number }>`
   position: absolute;
