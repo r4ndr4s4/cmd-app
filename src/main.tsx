@@ -20,7 +20,7 @@ Sentry.init({
   replaysOnErrorSampleRate: 1.0,
 });
 
-ReactGA.initialize("G-QG8NKYW2EM");
+ReactGA.initialize(env.VITE_GA_ID);
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 createRoot(document.getElementById("root")!).render(
