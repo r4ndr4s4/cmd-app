@@ -11,7 +11,7 @@ const Container = styled.div`
 function Header() {
   return (
     <Container>
-      <img src={awardBiosLogo} height="45" />
+      <img src={awardBiosLogo} width="33" height="45" />
 
       <div>
         <p>Award Modular BIOS v4.51PG, An Energy Star Ally</p>

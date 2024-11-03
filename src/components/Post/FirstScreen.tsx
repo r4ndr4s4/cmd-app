@@ -71,7 +71,7 @@ function FirstScreen() {
           <DeviceDetection />
         </div>
 
-        <img src={energyStarLogo} height="125" />
+        <img src={energyStarLogo} width="193" height="125" />
       </HardwareContainer>
 
       <div>
